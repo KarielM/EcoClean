@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 def base(request):
 
-    return render(request, "base.html")
+    return redirect(request, "home,html")
 
 
 def home(request):
