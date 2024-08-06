@@ -2,4 +2,79 @@
 {% load static %}
 {%block content%}
 <h1>Contact</h1>
+
+ <script>
+    async function submitAddForm(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        try {
+            const response = await fetch('{% url "add_zip_code" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                event.target.reset();
+            } else {
+                alert('Error: ' + (result.error ? result.error : 'Unknown error occurred.'));
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    }
+</script>
+<h1>Add Zip Code</h1>
+<form id="add-zip-code-form" onsubmit="submitAddForm(event)">
+    {% csrf_token %}
+    <input type="integer" id="id_code" name="code" placeholder="Enter zip code" required>
+    <button type="submit">Add</button>
+</form>
+
+<title>Check Zip Code</title>
+<script>
+    function isInteger(value) {
+        const parsedValue = parseInt(value, 10);
+        return Number.isInteger(parsedValue)
+    }
+
+    async function checkZipCode() {
+        const zipCode = document.getElementById('id_codes').value;
+        const resultElement = document.getElementById('check-result');
+
+        if (!isInteger(zipCode)) {
+            resultElement.textContent = 'Please enter a valid integer zip code.';
+            return;
+        }
+
+        try {
+            const response = await fetch(`/check-zip-code/?code=${zipCode}`);
+            const result = await response.json();
+            if (response.ok) {
+                const message = result.exists ? 'We service this area!' : 'Sorry, we do not service this area.';
+                resultElement.textContent = message;
+            } else {
+                resultElement.textContent = 'Error: ' + (result.error ? result.error : 'Unknown error occurred.');
+            }
+        } catch (error) {
+            resultElement.textContent = 'Error: ' + error.message;
+        }
+    }
+</script>
+<h1>Check Zip Code</h1>
+<form id="check-zip-code-form" method="get">
+    {% csrf_token %}
+    <label for="id_code">Enter Zip Code:</label>
+    <input type="integer" id="id_codes" name="code" placeholder="Enter zip code" required>
+    <button type="button" onclick="checkZipCode()">Check</button>
+</form>
+<p id="check-result"></p>
+
+
 {% endblock content %}

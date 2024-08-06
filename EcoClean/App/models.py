@@ -1,3 +1,8 @@
+
 from django.db import models
 
-# Create your models here.
+class ZipCode(models.Model):
+    code = models.CharField(max_length=5, unique=True)
+
+    def __str__(self):
+        return self.code
