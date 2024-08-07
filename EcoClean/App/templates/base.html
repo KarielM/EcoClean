@@ -10,16 +10,18 @@
   <body>
     <div class="main-container">
       <div class="navbar">
-        <a href="#" class="logo">
+        <a><img src="//nebula.wsimg.com/660fdbb987b5d1533de558c2fa3143f3?AccessKeyId=F831F26E3670C1B9EE7E&amp;disposition=0&amp;alloworigin=1" style="vertical-align:middle;width:210px;height:214px;"></a>
+
+        {% comment %} <a href="#" class="logo">
           Eco
           <b>Clean</b>
-        </a>
+        </a> {% endcomment %}
         <ul id="listSec">
-          <li><a href="" class="active">Home</a></li>
-          <li><a href="">About</a></li>
-          <li><a href="">Services</a></li>
+          <li><a href="{% url "home"%}" class="active">Home</a></li>
+          <li><a href="{% url "about"%}">About</a></li>
+          <li><a href="{% url "services"%}">Services</a></li>
           <li><a href="">Gallery</a></li>
-          <li><a href="">Contact</a></li>
+          <li><a href="{% url "contact"%}">Contact</a></li>
         </ul>
         <div class="btn-sec">
           <button>Book Us</button>
