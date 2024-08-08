@@ -42,6 +42,7 @@
 }
 
 .logo {
+  width: 80%;
   text-decoration: none;
   color: #77b829;
   text-transform: uppercase;
@@ -98,6 +99,11 @@ button:hover {
   background: #fff;
 }
 
+button a {
+  color: #282828;
+  text-decoration: none;
+}
+
 .bottom-sec {
   max-width: 1170px;
   width: 100%;
@@ -145,11 +151,11 @@ button:hover {
   height: 160%;
   position: absolute;
   right: 0;
-}
+} */
 
 .right-img {
-  width: 90%;
-} */
+  width: 100%;
+}
 
 .services-sec {
   width: 100%;
@@ -179,7 +185,9 @@ button:hover {
   max-width: 1170px;
   width: 100%;
   height: fit-content;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
@@ -187,13 +195,14 @@ button:hover {
 }
 
 .card {
-  width: 30%;
+  width: 100%;
   height: fit-content;
   display: flex;
+  /* text-align: left; */
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  /* gap: 20px; */
   background: #f9f9f9;
   padding: 40px 25px;
   border-radius: 15px;
@@ -318,7 +327,6 @@ button:hover {
     line-height: 45px;
   }
 }
-
 
 /* THIS IS JUST TEMPORARY SO I CAN SEE THE CHATBOT LAYOUT
 */

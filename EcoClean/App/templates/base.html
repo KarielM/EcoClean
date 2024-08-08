@@ -10,7 +10,8 @@
   <body>
     <div class="main-container">
       <div class="navbar">
-        <a><img src="//nebula.wsimg.com/660fdbb987b5d1533de558c2fa3143f3?AccessKeyId=F831F26E3670C1B9EE7E&amp;disposition=0&amp;alloworigin=1" style="vertical-align:middle;width:210px;height:214px;"></a>
+        <a><img class="logo" src="{% static 'images/logo2.png'%}"></a>
+        {% comment %} <a><img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:210px;height:214px;"></a> {% endcomment %}
 
         {% comment %} <a href="#" class="logo">
           Eco
@@ -25,7 +26,7 @@
         </ul>
         <div class="btn-sec">
           <button>
-          <a href="https://squareup.com/appointments/book/de8xsf7jgocz1v/L6EYKABPQWJA8/start" target="_blank">Book Us</a>
+          <a class= href="https://squareup.com/appointments/book/de8xsf7jgocz1v/L6EYKABPQWJA8/start" target="_blank">Book Us</a>
           </button>
         </div>
       </div>
@@ -43,7 +44,7 @@
           </p>
           <button>Read More</button>
         </div>
-        <div class="right-sec"><img src="{% static "images/blank.png" %}" /></div>
+        <div class="right-sec"><img class="right-img" src="{% static "images/blank.png" %}" /></div>
       </div>
     </div>
     {% block content %}{% endblock content %}
