@@ -1,0 +1,78 @@
+<div id="chatbot">
+  <div id="chatbox">
+      <div id="chatbox-header">Chat with us!</div>
+      <div id="chatbox-body">
+          <div id="messages"></div>
+          <textarea id="user-input" placeholder="Type your message..."></textarea>
+          <button id="send-btn">Send</button>
+          <div id="typing-indicator">
+              <div class="typing-indicator-dot"></div>
+              <div class="typing-indicator-dot"></div>
+              <div class="typing-indicator-dot"></div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const chatbot = document.getElementById('chatbot');
+  const messages = document.getElementById('messages');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+  const typingIndicator = document.getElementById('typing-indicator');
+
+  const faqs = {
+    "hours": "Our hours of operation are Monday to Friday, 9 AM to 5 PM. <a href='/about' target='_blank'>More details</a>.",
+    "location": "We are located at 123 Clean Street, Memphis, TN.",
+    "services": "We offer residential and commercial cleaning services.",
+    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>Contact us</a>.",
+  };
+
+  function addMessage(text, isUser = false) {
+    const messageHTML = `
+      <div class="${isUser ? 'user-message' : 'bot-message'}">
+        ${text}
+      </div>
+    `;
+    messages.insertAdjacentHTML('beforeend', messageHTML);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function handleUserInput() {
+    const inputText = userInput.value.trim().toLowerCase();
+    if (inputText) {
+      addMessage(inputText, true);
+      userInput.value = '';
+      typingIndicator.style.display = 'block';
+
+      setTimeout(() => {
+        typingIndicator.style.display = 'none';
+        const response = getResponse(inputText) || generateSuggestions();
+        addMessage(response);
+      }, 2000);
+    }
+  }
+
+  function getResponse(inputText) {
+    for (const key in faqs) {
+      if (faqs.hasOwnProperty(key) && inputText.includes(key)) {
+        return faqs[key];
+      }
+    }
+    return null;
+  }
+
+  function generateSuggestions() {
+    const suggestionsText = Object.keys(faqs).map(key => `- ${key}`).join('<br>');
+    return `Sorry, I don't understand that question. You can ask me about:<br>${suggestionsText}`;
+  }
+
+  sendBtn.addEventListener('click', handleUserInput);
+  userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handleUserInput();
+    }
+  });
+});
+</script>

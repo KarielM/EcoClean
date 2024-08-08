@@ -21,3 +21,20 @@ class ZipCodeCheckForm(forms.Form):
             "invalid": "Enter a valid integer zip code.",
         },
     )
+
+class ContactUsForm(forms.Form):
+    name = forms.CharField(label="Name", max_length=100)
+    email = forms.EmailField(label = "Email")
+    phone_number = forms.CharField(
+        label='Phone Number', max_length=11,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,15}$',
+                message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.'
+            )
+        ],
+        required=False
+    )
+    subject = forms.CharField(label="subject", max_length=250, required=False)
+    message = forms.CharField(label='Message', widget=forms.Textarea)
+

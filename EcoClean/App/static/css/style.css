@@ -214,12 +214,14 @@ button:hover {
     font-size: 50px;
     line-height: 58px;
   }
+
   .card-sec {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 30px;
   }
+
   .card {
     width: 400px;
   }
@@ -264,6 +266,7 @@ button:hover {
     padding: 1.5rem 0 3rem 0;
     gap: 40px;
   }
+
   .left-sec {
     max-width: 600px;
     width: 100%;
@@ -272,14 +275,17 @@ button:hover {
     flex-direction: column;
     text-align: center;
   }
+
   .right-sec {
     max-width: 400px;
     width: 100%;
   }
+
   .services-sec h1 {
     text-align: center;
     font-size: 27px;
   }
+
   .services-sec p {
     font-size: 14px;
   }
@@ -291,20 +297,28 @@ button:hover {
     height: 43px;
     font-size: 15px;
   }
+
   .left-sec button {
     margin-bottom: 1.5rem;
   }
+
   .left-sec p {
     width: 100%;
     font-size: 14px;
     margin-bottom: 25px;
   }
+
   .down-btn {
     width: 23px;
     height: 48px;
   }
+
   .left-sec h1 {
     font-size: 38px;
     line-height: 45px;
   }
 }
+
+
+/* THIS IS JUST TEMPORARY SO I CAN SEE THE CHATBOT LAYOUT
+*/

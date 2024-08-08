@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import ZipCode
-from .forms import ZipCodeAddForm, ZipCodeCheckForm
+from .forms import *
+from django.conf import settings
+from django.core.mail import send_mail
+
+
 # Create your views here.
 
 
@@ -48,6 +52,33 @@ def check_zip_code(request):
         else:
             return JsonResponse({'error': form.errors.as_json()}, status=400)
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
+                                                                                                                                                                                                                                                                                                                
+def contactFormView(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
 
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone_number = form.cleaned_data['phone_number']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
 
+            email_subject = subject or 'Contact Us Form Submission'
+            email_body = (
+                f"Name: {name}\n"
+                f"Email: {email}\n"
+                f"Phone Number: {phone_number}\n"
+                f"Message:\n{message}"
+            )
 
+            send_mail(
+                email_subject,
+                email_body,
+                email,  
+                ['kmosley@basecampcodingacademy.org'],  # To email addr
+                fail_silently=False,
+            )
+    else:
+        form = ContactUsForm()
+    return render(request, 'contactUs.html', {'form':form})
