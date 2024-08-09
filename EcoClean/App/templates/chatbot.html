@@ -22,12 +22,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendBtn = document.getElementById('send-btn');
   const typingIndicator = document.getElementById('typing-indicator');
 
+  const faqKeywords = {
+    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
+    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information"],
+    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time"],
+    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
+  };  
+
   const faqs = {
     "hours": "Our hours of operation are Monday to Friday, 9 AM to 5 PM. <a href='/about' target='_blank'>More details</a>.",
     "location": "We are located at 123 Clean Street, Memphis, TN.",
-    "services": "We offer residential and commercial cleaning services.",
-    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>Contact us</a>.",
+    "services": "We offer commercial cleaning services.",
+    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>.",
   };
+
+  function capitalizeFirstLetter(str0) {
+    return str0.charAt(0).toUpperCase() + str0.slice(1);
+  }
 
   function addMessage(text, isUser = false) {
     const messageHTML = `
@@ -48,24 +59,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         typingIndicator.style.display = 'none';
-        const response = getResponse(inputText) || generateSuggestions();
+        const response = getResponse(inputText) || generateSuggestedUserInput();
         addMessage(response);
       }, 2000);
     }
   }
 
-  function getResponse(inputText) {
-    for (const key in faqs) {
-      if (faqs.hasOwnProperty(key) && inputText.includes(key)) {
+  function getResponse(userInput) {
+    userInput = userInput.toLowerCase();
+    for (const [key, keywords] of Object.entries(faqKeywords)) {
+      if (keywords.some(keyword => userInput.includes(keyword))){
         return faqs[key];
       }
     }
     return null;
   }
 
-  function generateSuggestions() {
-    const suggestionsText = Object.keys(faqs).map(key => `- ${key}`).join('<br>');
-    return `Sorry, I don't understand that question. You can ask me about:<br>${suggestionsText}`;
+  function generateSuggestedUserInput() {
+    const suggestedInputHTMLDiv = `
+    <div class = "suggestions-container">
+      <p>Sorry, I'm not sure what you're asking. You can ask me about:</p>
+      <ul class = "suggestionsList">
+        ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
+      </ul>
+    </div>
+    `;
+    return suggestedInputHTMLDiv;
   }
 
   sendBtn.addEventListener('click', handleUserInput);
@@ -76,3 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+
+{% comment "Need to add" %}
+    remove filler phrases
+    zip code integration
+    hyperlinks/quick links
+    input validation?
+{% endcomment %}
