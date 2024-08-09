@@ -123,7 +123,6 @@ button a {
 
 .right-sec {
   border: #fff solid 10px;
-  /* box-shadow: inset 0 0 10px #555; */
   border-radius: 10px;
   width: 48%;
   display: flex;
@@ -175,12 +174,31 @@ button a {
   margin-bottom: 15px;
 }
 
+strong {
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #77b829;
+  background-color: #f1f1f1;
+  border-radius: 7px;
+  padding: 5px 20px;
+}
+
 .content-sec p {
+  font-size: 14px;
+}
+
+.content-sec span {
   max-width: 650px;
   width: 100%;
-  text-align: center;
-  margin-bottom: 25px;
+  text-align: left;
+  margin-top: 25px;
+  margin-bottom: 40px;
   color: #878787;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 7px;
+  box-shadow: 0 0 5px #555;
 }
 
 .card-sec {
@@ -235,6 +253,10 @@ button a {
 
   .card {
     width: 400px;
+  }
+  .card-sec {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
   }
 }
 
@@ -300,6 +322,18 @@ button a {
   .content-sec p {
     font-size: 14px;
   }
+
+  .card-sec {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .card-sec {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+  }
 }
 
 @media (max-width: 600px) {
@@ -327,6 +361,11 @@ button a {
   .left-sec h1 {
     font-size: 38px;
     line-height: 45px;
+  }
+
+  .card-sec {
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
   }
 }
 
