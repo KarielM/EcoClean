@@ -48,6 +48,7 @@
   text-transform: uppercase;
   font-size: 22px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .logo b {
@@ -83,6 +84,7 @@
 
 button {
   background: #77b829;
+  cursor: pointer;
   color: #282828;
   border: none;
   outline: none;
@@ -157,7 +159,7 @@ button a {
   width: 100%;
 }
 
-.services-sec {
+.content-sec {
   width: 100%;
   height: fit-content;
   display: flex;
@@ -167,13 +169,13 @@ button a {
   padding: 5rem 5%;
 }
 
-.services-sec h1 {
+.content-sec h1 {
   font-size: 35px;
   font-weight: 700;
   margin-bottom: 15px;
 }
 
-.services-sec p {
+.content-sec p {
   max-width: 650px;
   width: 100%;
   text-align: center;
@@ -196,9 +198,9 @@ button a {
 
 .card {
   width: 100%;
-  height: fit-content;
+  height: 500px;
+  /* height: fit-content; */
   display: flex;
-  /* text-align: left; */
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -290,12 +292,12 @@ button a {
     width: 100%;
   }
 
-  .services-sec h1 {
+  .content-sec h1 {
     text-align: center;
     font-size: 27px;
   }
 
-  .services-sec p {
+  .content-sec p {
     font-size: 14px;
   }
 }
