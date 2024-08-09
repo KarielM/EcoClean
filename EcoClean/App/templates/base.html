@@ -10,7 +10,7 @@
   <body>
     <div class="main-container">
       <div class="navbar">
-        <a><img class="logo" src="{% static 'images/logo2.png'%}"></a>
+        <a href="/"><img class="logo" src="{% static 'images/logo2.png'%}"></a>
         {% comment %} <a><img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:210px;height:214px;"></a> {% endcomment %}
 
         {% comment %} <a href="#" class="logo">
@@ -26,7 +26,7 @@
         </ul>
         <div class="btn-sec">
           <button>
-          <a class= href="https://squareup.com/appointments/book/de8xsf7jgocz1v/L6EYKABPQWJA8/start" target="_blank">Book Us</a>
+          <a href="https://squareup.com/appointments/book/de8xsf7jgocz1v/L6EYKABPQWJA8/start" target="_blank">Book Us</a>
           </button>
         </div>
       </div>
@@ -42,7 +42,7 @@
             cleaning solutions to our clients. We prioritize environmental
             responsibility and customer satisfaction in all aspects of our work.
           </p>
-          <button>Read More</button>
+          <button><a href="{% url "about" %}">Read More</a></button>
         </div>
         <div class="right-sec"><img class="right-img" src="{% static "images/blank.png" %}" /></div>
       </div>
