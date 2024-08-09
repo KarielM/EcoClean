@@ -1,60 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
 
+{%block content%}
 <h1>Contact</h1>
-
- <script>
-    async function submitAddForm(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-
-        try {
-            const response = await fetch('{% url "add_zip_code" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.message);
-                event.target.reset();
-            } else {
-                alert('Error: ' + (result.error ? result.error : 'Unknown error occurred.'));
-            }
-        } catch (error) {
-            alert('Error: ' + error.message);
-        }
-    }
-</script>
-<h1>Add Zip Code</h1>
-<form id="add-zip-code-form" onsubmit="submitAddForm(event)">
-    {% csrf_token %}
-    <input type="integer" id="id_code" name="code" placeholder="Enter zip code" required>
-    <button type="submit">Add</button>
-</form>
-
-<title>Check Zip Code</title>
 <script>
     function isInteger(value) {
-        const parsedValue = parseInt(value, 10);
-        return Number.isInteger(parsedValue)
+        const parsedValue = parseInt(value, 10); 
+        return Number.isInteger(parsedValue);
     }
-
-    async function checkZipCode() {
-        const zipCode = document.getElementById('id_codes').value;
+    async function validate_zipcode() {
+        const zipCode = document.getElementById('id_codes').value.trim(); 
         const resultElement = document.getElementById('check-result');
-
+    
+        if (!zipCode) {
+            resultElement.textContent = 'ZIP code is required.';
+            return;
+        }
+    
         if (!isInteger(zipCode)) {
             resultElement.textContent = 'Please enter a valid integer zip code.';
             return;
         }
-
+        const zipCodeInt = parseInt(zipCode, 10);
+    
         try {
-            const response = await fetch(`/check-zip-code/?code=${zipCode}`);
+            const response = await fetch(`/check-zip-code/?code=${zipCodeInt}`);
             const result = await response.json();
             if (response.ok) {
                 const message = result.exists ? 'We service this area!' : 'Sorry, we do not service this area.';
@@ -66,18 +36,23 @@
             resultElement.textContent = 'Error: ' + error.message;
         }
     }
+    
 </script>
-<h1>Check Zip Code</h1>
-<form id="check-zip-code-form" method="get">
+
+<title>ZIP Code Validation</title>
+<form method="post" action="{% url 'check_zip_code' %}">
     {% csrf_token %}
-    <label for="id_code">Enter Zip Code:</label>
-    <input type="integer" id="id_codes" name="code" placeholder="Enter zip code" required>
-    <button type="button" onclick="checkZipCode()">Check</button>
+    <label for="zipcode">ZIP Code:</label>
+    <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
+    <button type="button" onclick="validate_zipcode()">Check</button>
 </form>
 <p id="check-result"></p>
 
 <h1>Contact Form</h1>
 
 
+</form>
 <h1>Job Application</h1>
 <a href="https://form.jotform.com/201124794979062" class="" target="_blank" title="Job Application">Job Application</a>
+
+{%endblock content%}
