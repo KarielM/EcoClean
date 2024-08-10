@@ -11,20 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import json
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-with open(os.path.join(BASE_DIR, 'config.json')) as config_file:
-    config = json.load(config_file)
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = config['EMAIL_HOST']
-# EMAIL_PORT = config['EMAIL_PORT']
-# EMAIL_USE_TLS = config['EMAIL_USE_TLS']
-# EMAIL_HOST_USER = config['EMAIL_HOST_USER']
-# EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +25,12 @@ SECRET_KEY = "django-insecure-j_qi2=9=tu!+_b@^k3_wx-@ykz12$q)ig+-7&7w_kpn+hhpday
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ecocleanbusiness2024@gmail.com'
+EMAIL_HOST_PASSWORD = 'fyho gsri ieig ssmu'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ALLOWED_HOSTS = []
 
