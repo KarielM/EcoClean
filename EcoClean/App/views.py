@@ -73,14 +73,17 @@ def contactFormView(request):
                 f"Phone Number: {phone_number}\n"
                 f"Message:\n{message}"
             )
-
-            send_mail(
-                email_subject,
-                email_body,
-                email,
-                ["kmosley@basecampcodingacademy.org"],  # To email addr
-                fail_silently=False,
-            )
+            try:
+                send_mail(
+                    email_subject,
+                    email_body,
+                    settings.EMAIL_HOST_USER,
+                    [email],
+                    fail_silently=False
+                )
+                return redirect('home')
+            except Exception as e:
+                print(f"Error sending email: {e}")
     else:
         form = ContactUsForm()
     return render(request, "contactUs.html", {"form": form})
