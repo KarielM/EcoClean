@@ -27,17 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
     "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information"],
     "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time"],
     "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
-  };  
-
-  const faqs = {
-    "hours": "Our hours of operation are Monday to Friday, 9 AM to 5 PM. <a href='/about' target='_blank'>More details</a>.",
-    "location": "We are located at 123 Clean Street, Memphis, TN.",
-    "services": "We offer commercial cleaning services.",
-    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>.",
   };
 
-  function capitalizeFirstLetter(str0) {
-    return str0.charAt(0).toUpperCase() + str0.slice(1);
+  const faqs = {
+    "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
+    <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book a Service</a>`,
+    
+    "location": "We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient zip code checker tool below. Simply enter your zip code to verify if your area falls within our service region.<div id='contact-container'></div>",
+    
+    "services": 'At [Your Company Name], we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out [this link] for more details on our services.
+    <a href="{% url "services" %}">',
+    
+    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>."
+  };
+
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   function addMessage(text, isUser = false) {
@@ -51,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleUserInput() {
-    const inputText = userInput.value.trim().toLowerCase();
-    if (inputText) {
+    const inputText = userInput.value.trim();
+    if (inputText && /^[a-zA-Z0-9\s]*$/.test(inputText)) {
       addMessage(inputText, true);
       userInput.value = '';
       typingIndicator.style.display = 'block';
@@ -61,7 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
         typingIndicator.style.display = 'none';
         const response = getResponse(inputText) || generateSuggestedUserInput();
         addMessage(response);
+        if (response.includes("<div id='contact-container'></div>")) {
+          loadContactHTML();
+          messages.scrollTop = messages.scrollHeight;
+        }
       }, 2000);
+    } else {
+      addMessage("Please enter a valid message.");
     }
   }
 
@@ -77,14 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateSuggestedUserInput() {
     const suggestedInputHTMLDiv = `
-    <div class = "suggestions-container">
+    <div class="suggestions-container">
       <p>Sorry, I'm not sure what you're asking. You can ask me about:</p>
-      <ul class = "suggestionsList">
+      <ul class="suggestionsList">
         ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
       </ul>
     </div>
     `;
     return suggestedInputHTMLDiv;
+  }
+
+  function loadContactHTML() {
+    fetch('/contact')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('contact-container').innerHTML = html;
+      })
+      .catch(error => console.error('Error loading contact.html:', error));
   }
 
   sendBtn.addEventListener('click', handleUserInput);
@@ -95,11 +115,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-
-
-{% comment "Need to add" %}
-    remove filler phrases
-    zip code integration
-    hyperlinks/quick links
-    input validation?
-{% endcomment %}

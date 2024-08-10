@@ -33,7 +33,6 @@ def contact(request):
 
 ZIPCODE_FILE_PATH = os.path.join(settings.BASE_DIR, "zipcode.json")
 
-
 def load_zip_codes():
     with open(ZIPCODE_FILE_PATH, "r") as file:
         data = json.load(file)
@@ -41,7 +40,9 @@ def load_zip_codes():
 
 
 def validate_zipcode(request):
+    print(request.POST.get("code"))
     zip_code = request.GET.get("code")
+    print (zip_code)
     try:
         zip_code = int(zip_code)
     except (TypeError, ValueError):
@@ -83,6 +84,8 @@ def contactFormView(request):
                 return redirect('home')
             except Exception as e:
                 print(f"Error sending email: {e}")
+                return redirect('home')
+                
     else:
         form = ContactUsForm()
     return render(request, "contactUs.html", {"form": form})
