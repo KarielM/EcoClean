@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
   const typingIndicator = document.getElementById('typing-indicator');
-  const servicesPageUrl = "{% url 'services' %}";
 
   const faqKeywords = {
     "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient zip code checker tool below. Simply enter your zip code to verify if your area falls within our service region.<div id='contact-container'></div>`,
     
-    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="/services/">this link</a> for more details on our services.`,
+    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="{% url 'services' %}">this link</a> for more details on our services.`,
     
     "contact": `You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>.`
   };  
