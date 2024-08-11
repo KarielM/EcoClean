@@ -1,16 +1,16 @@
 <div id="chatbot">
   <div id="chatbox">
-      <div id="chatbox-header">Chat with us!</div>
-      <div id="chatbox-body">
-          <div id="messages"></div>
-          <textarea id="user-input" placeholder="Type your message..."></textarea>
-          <button id="send-btn">Send</button>
-          <div id="typing-indicator">
-              <div class="typing-indicator-dot"></div>
-              <div class="typing-indicator-dot"></div>
-              <div class="typing-indicator-dot"></div>
-          </div>
+    <div id="chatbox-header">Chat with us!</div>
+    <div id="chatbox-body">
+      <div id="messages"></div>
+      <textarea id="user-input" placeholder="Type your message..."></textarea>
+      <button id="send-btn">Send</button>
+      <div id="typing-indicator">
+        <div class="typing-indicator-dot"></div>
+        <div class="typing-indicator-dot"></div>
+        <div class="typing-indicator-dot"></div>
       </div>
+    </div>
   </div>
 </div>
 
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
   const typingIndicator = document.getElementById('typing-indicator');
+  const servicesPageUrl = "{% url 'services' %}";
 
   const faqKeywords = {
     "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
@@ -33,27 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
     "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
     <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book a Service</a>`,
     
-    "location": "We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient zip code checker tool below. Simply enter your zip code to verify if your area falls within our service region.<div id='contact-container'></div>",
+    "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient zip code checker tool below. Simply enter your zip code to verify if your area falls within our service region.<div id='contact-container'></div>`,
     
-    "services": 'At [Your Company Name], we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out [this link] for more details on our services.
-    <a href="{% url "services" %}">',
+    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="/services/">this link</a> for more details on our services.`,
     
-    "contact": "You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>."
-  };
+    "contact": `You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>.`
+  };  
+  
 
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  function escapeHTML(str) {
+    return str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#039;');
+  }
+
   function addMessage(text, isUser = false) {
+    const messageText = isUser ? escapeHTML(text) : text;
+    
     const messageHTML = `
       <div class="${isUser ? 'user-message' : 'bot-message'}">
-        ${text}
+        ${messageText}
       </div>
     `;
+  
     messages.insertAdjacentHTML('beforeend', messageHTML);
     messages.scrollTop = messages.scrollHeight;
   }
+  
 
   function handleUserInput() {
     const inputText = userInput.value.trim();
@@ -79,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function getResponse(userInput) {
     userInput = userInput.toLowerCase();
     for (const [key, keywords] of Object.entries(faqKeywords)) {
-      if (keywords.some(keyword => userInput.includes(keyword))){
+      if (keywords.some(keyword => userInput.includes(keyword))) {
         return faqs[key];
       }
     }
@@ -100,11 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function loadContactHTML() {
     fetch('/contact')
-      .then(res => res.text())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
       .then(html => {
         document.getElementById('contact-container').innerHTML = html;
       })
-      .catch(error => console.error('Error loading contact.html:', error));
+      .catch(error => {
+        console.error('Error loading contact.html:', error);
+        document.getElementById('contact-container').innerHTML = "<p>Sorry, we couldn't load the contact information at this time. Please try again later.</p>";
+      });
   }
 
   sendBtn.addEventListener('click', handleUserInput);
