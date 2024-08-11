@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const faqKeywords = {
     "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
-    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information"],
+    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative"],
     "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time"],
     "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
   };
@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
     <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book a Service</a>`,
     
-    "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient zip code checker tool below. Simply enter your zip code to verify if your area falls within our service region.<div id='contact-container'></div>`,
+    "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient <a href="{% url 'contactUs' %}#check_zip_code">zip code checker tool</a>.`,
     
-    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="{% url 'services' %}">this link</a> for more details on our services.`,
+    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="{% url 'services' %}">this link</a> for more details on the services we offer.`,
     
-    "contact": `You can contact us at (123) 456-7890 or <a href='/contact' target='_blank'>send us an email</a>.`
-  };  
+    "contact": `You can contact us at (662) 510-5715 for immediate assistance or <a href="{% url 'contactUs' %}#send_us_an_email_form">send us an email</a>. We will get back to you as soon as possible. We look forward to hearing from you and are here to help with any questions or concerns you may have!`
+  };
   
 
   function capitalizeFirstLetter(str) {
