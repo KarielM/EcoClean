@@ -36,6 +36,7 @@ ZIPCODE_FILE_PATH = os.path.join(settings.BASE_DIR, "zipcode.json")
 def load_zip_codes():
     with open(ZIPCODE_FILE_PATH, "r") as file:
         data = json.load(file)
+        print({int(k): v for k, v in data.items()})
     return {int(k): v for k, v in data.items()}
 
 
