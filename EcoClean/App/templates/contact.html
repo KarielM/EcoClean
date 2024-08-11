@@ -50,7 +50,7 @@
     {% csrf_token %}
     <label for="zipcode">ZIP Code:</label>
     <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
-    <button id = "form_submit_button" type="button">Check</button>
+    <button id = "form_submit_button" onclick = validate_zipcode() type="button">Check</button>
 </form>
 <p id="check-result"></p>
 {%endblock content%}
