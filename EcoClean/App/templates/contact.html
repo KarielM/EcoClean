@@ -10,6 +10,7 @@
     async function validate_zipcode() {
         const zipCode = document.getElementById('id_codes').value.trim(); 
         const resultElement = document.getElementById('check-result');
+        console.log(zipCode);
     
         if (!zipCode) {
             resultElement.textContent = 'ZIP code is required.';
@@ -35,6 +36,12 @@
             resultElement.textContent = 'Error: ' + error.message;
         }
     }
+
+    const submit_button = document.getElementById("form_submit_button");
+    submit_button.addEventListener("click", ()=> {
+        console.log("clicked");
+        validate_zipcode();
+    });
     
 </script>
 
@@ -43,14 +50,7 @@
     {% csrf_token %}
     <label for="zipcode">ZIP Code:</label>
     <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
-    <button type="button" onclick="validate_zipcode()">Check</button>
+    <button id = "form_submit_button" onclick = validate_zipcode() type="button">Check</button>
 </form>
 <p id="check-result"></p>
-
-
-
-</form>
-<h1>Jobs at EcoClean</h1>
-<a href="https://form.jotform.com/242224227561147" class="" target="_blank" title="Job Application">Apply Now </a>
-
 {%endblock content%}

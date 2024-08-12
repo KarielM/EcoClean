@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="content-sec">
+<div class="content-sec" id = "send_us_an_email_form">
     <h1>Contact Us</h1>
     <form method="post" action="{% url 'contactUs' %}">
         {% csrf_token %}
@@ -10,6 +10,15 @@
         <button type="submit">Send</button>
     </form>
 </div>
-{%include "contact.html"%}
+
+<div id = "zip_code_checker">
+    <h1>Contact</h1>
+    {% include "contact.html"%}
+</div>
+
+<div>
+<h1>Job Application</h1>
+<a href="https://form.jotform.com/201124794979062" class="" target="_blank" title="Job Application">Job Application</a>
+</div>
 {% endblock content %}
 
