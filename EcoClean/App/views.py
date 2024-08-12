@@ -30,6 +30,8 @@ def services(request):
 def contact(request):
     return render(request, "contact.html")
 
+def gallery(request):
+    return render(request, "gallery.html")
 
 ZIPCODE_FILE_PATH = os.path.join(settings.BASE_DIR, "zipcode.json")
 
