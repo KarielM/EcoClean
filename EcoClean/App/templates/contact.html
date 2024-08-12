@@ -2,7 +2,6 @@
 {% load static %}
 
 {%block content%}
-<h1>Contact</h1>
 <script>
     function isInteger(value) {
         const parsedValue = parseInt(value, 10); 
@@ -39,7 +38,7 @@
     
 </script>
 
-<title>ZIP Code Validation</title>
+<h1>SEE IF WE SERVICE YOUR AREA</h1>
 <form method="post" action="{% url 'check_zip_code' %}">
     {% csrf_token %}
     <label for="zipcode">ZIP Code:</label>
@@ -48,11 +47,10 @@
 </form>
 <p id="check-result"></p>
 
-<h1>Contact Form</h1>
 
 
 </form>
-<h1>Job Application</h1>
-<a href="https://form.jotform.com/242224227561147" class="" target="_blank" title="Job Application">Job Application</a>
+<h1>Jobs at EcoClean</h1>
+<a href="https://form.jotform.com/242224227561147" class="" target="_blank" title="Job Application">Apply Now </a>
 
 {%endblock content%}
