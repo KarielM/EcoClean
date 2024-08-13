@@ -35,19 +35,45 @@
         <div class="left-sec">
           <h1>
             Serving<br />Greater Memphis,<br />
-            North Mississippi, & Southern Arkansas
+            North Mississippi, Nashville  & Southern Arkansas
           </h1>
           <p>
             Eco Clean is committed to delivering high-quality and sustainable
             cleaning solutions to our clients. We prioritize environmental
             responsibility and customer satisfaction in all aspects of our work.
           </p>
-          <button><a href="{% url "about" %}">Read More</a></button>
+          <button>
+            <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book Us</a>
+            </button>
         </div>
-        <div class="right-sec"><img class="right-img" src="{% static "images/blank.png" %}" /></div>
+        {% comment %} <div class="right-sec"><img class="right-img" src="{% static "images/blank.png" %}" /></div> {% endcomment %}
       </div>
     </div>
     {% block content %}{% endblock content %}
-    {% include 'chatbot.html' %}
   </body>
+  <footer>
+    <img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/>
+    <img class="logo" src="{% static 'images/recycle.jpg'%}" style="vertical-align:middle;width:210px;height:214px;"/>
+    <p>
+      If you are wondering where or what to recycle in the Mid-South, you've come to the right place. Our  company is committed to increasing sustainable operations, we currently offer commercial co-mingled recycling programs for local businesses and residential recycling for cardboard, paper, aluminum, and plastic.
+    </p>
+
+    <ul>
+      <li><a href="{% url "home"%}" class="active">Home</a></li>
+      <li><a href="{% url "about"%}">About</a></li>
+      <li><a href="{% url "services"%}">Services</a></li>
+      <li><a href="{% url "gallery"%}">Gallery</a></li>
+      <li><a href="{% url "contactUs"%}">Contact Us</a></li>
+    </ul>
+    <p>info.ecocleanllc@gmail.com<p>
+    <p>662-510-5715</p>
+    <div class="btn-sec">
+      <button>
+      <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book Us</a>
+      </button>
+    </div>
+  </footer>
+
+  {% include 'chatbot.html' %}
+
   </html>
