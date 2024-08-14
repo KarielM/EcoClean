@@ -1,5 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
+from datetime import time
 from App.models import *
 
 import json
@@ -27,5 +29,39 @@ class ContactUsForm(forms.Form):
         ],
         required=False,
     )
-    subject = forms.CharField(label="subject", max_length=250, required=False)
     message = forms.CharField(label="Message", widget=forms.Textarea)
+
+
+class BookUsForm(forms.Form):
+    name = forms.CharField(label="Name", max_length=100)
+    email = forms.EmailField(label="Email")
+    phone_number = forms.CharField(
+        label="Phone Number",
+        max_length=11,
+        validators=[
+            RegexValidator(
+                regex=r"^\+?1?\d{9,15}$",
+                message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.',
+            )
+        ],
+        required=False,
+    )
+    street_address_1 = forms.CharField(label="Street Address", max_length=250)
+    street_address_2 = forms.CharField(label="Apt./Suite", max_length=250, required=False)
+    city = forms.CharField(label="City", max_length=50)
+    state = forms.CharField(label="State", max_length=2)
+    zip_code = forms.IntegerField(label="ZIP")
+    date_requested = forms.DateField(input_formats = ['%m/%d/%Y'])
+    time = forms.TimeField(input_formats = ['%I:%M %p'])
+
+    def timeBoundaries(self):
+        user_input_time = self.cleaned_data['time']
+        
+        start_time = time(8,0)
+        end_time = time(16,30)
+
+        if not (start_time <= user_input_time <= end_time):
+            raise ValidationError(f'Requested time for must be between {start_time.strftime("%H:%M")} and {end_time.strftime("%H:%M")}.')
+        
+        return user_input_time
+

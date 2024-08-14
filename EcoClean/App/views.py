@@ -11,7 +11,6 @@ import os
 
 
 def base(request):
-
     return redirect(request, "home,html")
 
 
@@ -66,22 +65,20 @@ def contactFormView(request):
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             phone_number = form.cleaned_data["phone_number"]
-            subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
 
-            email_subject = subject or "Contact Us Form Submission"
             email_body = (
                 f"Name: {name}\n"
                 f"Email: {email}\n"
                 f"Phone Number: {phone_number}\n"
-                f"Message:\n{message}"
+                f"{message}"
             )
             try:
                 send_mail(
-                    email_subject,
+                    "Additional Info Requested",
                     email_body,
-                    settings.EMAIL_HOST_USER,
-                    [email],
+                    email,
+                    [settings.EMAIL_HOST_USER],
                     fail_silently=False
                 )
                 return redirect('home')
@@ -92,3 +89,55 @@ def contactFormView(request):
     else:
         form = ContactUsForm()
     return render(request, "contactUs.html", {"form": form})
+
+def bookUsView(request):
+    if request.method == "POST":
+        form = BookUsForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            phone_number = form.cleaned_data["phone_number"]
+            date = form.cleaned_data["date_requested"]
+            street_address_1 = form.cleaned_data["street_address_1"]
+            street_address_2 = None if form.cleaned_data["street_address_2"] is not None else form.cleaned_data["street_address_2"]
+            city = form.cleaned_data["city"]
+            state = form.cleaned_data["state"]
+            zip_code = form.cleaned_data["zip_code"]
+            time = form.cleaned_data["time"]
+            print(f"Date:{date},Time:{time}")
+
+            email_body = (
+                "I would like to schedule an appointment and am providing the necessary details below:\n"
+                f"Name: {name}\n"
+                f"Email: {email}\n"
+                f"Phone Number: {phone_number}\n"
+                f"Address: {street_address_1}"
+                + (f" {street_address_2}" if street_address_2 else "")
+                + f", {city}, {state} {zip_code}\n"
+                f"Preferred Date: {date}\n"
+                f"Preferred Time: {time}\n"
+
+                "Please let me know if this time is available or if there are any other suitable time slots. If you need any additional information to confirm the appointment, feel free to reach out.\n"
+
+                "Thank you for your assistance, and I look forward to your response.\n"
+
+                "Best regards,\n"
+                f"{name}"
+            )
+
+
+            try:
+                send_mail(
+                    "Booking Request",
+                    email_body,
+                    email,
+                    [settings.EMAIL_HOST_USER],
+                    fail_silently=False
+                )
+                return redirect('home')
+            except Exception as e:
+                print(f"Error sending email: {e}")
+    else:
+        form = BookUsForm()
+    return render(request, "bookUs.html", {"form":form})

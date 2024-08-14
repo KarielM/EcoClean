@@ -11,4 +11,5 @@ urlpatterns = [
     path("services/", services, name="services"),
     path("check-zip-code/", validate_zipcode, name="check_zip_code"),
     path("contact_us/", contactFormView, name="contactUs"),
+    path("bookUs/", bookUsView, name="book_us")
 ]
