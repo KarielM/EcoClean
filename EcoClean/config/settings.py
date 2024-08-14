@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-j_qi2=9=tu!+_b@^k3_wx-@ykz12$q)ig+-7&7w_kpn+hhpday"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -32,7 +32,7 @@ EMAIL_HOST_USER = "ecocleanbusiness2024@gmail.com"
 EMAIL_HOST_PASSWORD = "fyho gsri ieig ssmu"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["kwicker.pythonanywhere.com"]
 
 
 # Application definition
