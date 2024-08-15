@@ -38,6 +38,7 @@ from django.core.validators import RegexValidator
 from datetime import time
 
 class BookUsForm(forms.Form):
+    business_name = forms.CharField(label="Business Name", max_length=250)
     name = forms.CharField(label="Name", max_length=100)
     email = forms.EmailField(label="Email")
     phone_number = forms.CharField(
@@ -78,7 +79,7 @@ class BookUsForm(forms.Form):
             start_time = time(8, 0)
             end_time = time(16, 30)
             if not (start_time <= time_requested <= end_time):
-                raise ValidationError(f'Requested time must be between {start_time.strftime("%H:%M")} and {end_time.strftime("%H:%M")}.')
+                raise ValidationError(f'Requested time must be between {start_time.strftime("%H:%M %p")} and {end_time.strftime("%I:%M %p")}.')
 
         if date_requested:
             cleaned_data['date_requested'] = date_requested.strftime('%m/%d/%Y')

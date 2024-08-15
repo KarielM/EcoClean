@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const faqKeywords = {
     "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
     "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative"],
-    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time"],
+    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment"],
     "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
   };
 
   const faqs = {
     "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
-    <a href="https://squareup.com/appointments/book/3ov3bhv3t3rajd/L8JZ35CXAAJPK/start" target="_blank">Book a Service</a>`,
+    <a href="{% url "book_us" %}">Book a Service</a>`,
     
     "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient <a href="{% url 'contactUs' %}#check_zip_code">zip code checker tool</a>.`,
     

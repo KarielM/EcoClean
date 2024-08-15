@@ -95,6 +95,7 @@ def bookUsView(request):
         form = BookUsForm(request.POST)
 
         if form.is_valid():
+            business_name = form.cleaned_data['business_name']
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             phone_number = form.cleaned_data["phone_number"]
@@ -109,6 +110,7 @@ def bookUsView(request):
 
             email_body = (
                 "I would like to schedule an appointment and am providing the necessary details below:\n"
+                f"Business Name: {business_name}\n"
                 f"Name: {name}\n"
                 f"Email: {email}\n"
                 f"Phone Number: {phone_number}\n"
