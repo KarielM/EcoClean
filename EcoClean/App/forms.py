@@ -32,6 +32,11 @@ class ContactUsForm(forms.Form):
     message = forms.CharField(label="Message", widget=forms.Textarea)
 
 
+from django import forms
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
+from datetime import time
+
 class BookUsForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)
     email = forms.EmailField(label="Email")
@@ -50,18 +55,35 @@ class BookUsForm(forms.Form):
     street_address_2 = forms.CharField(label="Apt./Suite", max_length=250, required=False)
     city = forms.CharField(label="City", max_length=50)
     state = forms.CharField(label="State", max_length=2)
-    zip_code = forms.IntegerField(label="ZIP")
-    date_requested = forms.DateField(input_formats = ['%m/%d/%Y'])
-    time = forms.TimeField(input_formats = ['%I:%M %p'])
+    zip_code = forms.CharField(
+        label="ZIP",
+        max_length=5,
+        validators=[
+            RegexValidator(
+                regex=r'^\d+$',
+                message='ZIP code must contain only digits.'
+            )
+        ],
+        required=True
+    )
+    date_requested = forms.DateField(input_formats=['%m/%d/%Y'], required=True)
+    time = forms.TimeField(input_formats=['%I:%M %p'], required=True)
 
-    def timeBoundaries(self):
-        user_input_time = self.cleaned_data['time']
-        
-        start_time = time(8,0)
-        end_time = time(16,30)
+    def clean(self):
+        cleaned_data = super().clean()
+        date_requested = cleaned_data.get('date_requested')
+        time_requested = cleaned_data.get('time')
 
-        if not (start_time <= user_input_time <= end_time):
-            raise ValidationError(f'Requested time for must be between {start_time.strftime("%H:%M")} and {end_time.strftime("%H:%M")}.')
-        
-        return user_input_time
+        if time_requested:
+            start_time = time(8, 0)
+            end_time = time(16, 30)
+            if not (start_time <= time_requested <= end_time):
+                raise ValidationError(f'Requested time must be between {start_time.strftime("%H:%M")} and {end_time.strftime("%H:%M")}.')
+
+        if date_requested:
+            cleaned_data['date_requested'] = date_requested.strftime('%m/%d/%Y')
+        if time_requested:
+            cleaned_data['time'] = time_requested.strftime('%I:%M %p')
+
+        return cleaned_data
 
