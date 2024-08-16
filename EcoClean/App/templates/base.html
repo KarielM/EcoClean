@@ -51,28 +51,33 @@
     </div>
     {% block content %}{% endblock content %}
   </body>
+  <hr class="hr-style">
   <footer class="footer-sec">
-    <img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/>
-    <img class="logo" src="{% static 'images/recycle.jpg'%}" style="vertical-align:middle;width:210px;height:214px;"/>
-    <p>
-      If you are wondering where or what to recycle in the Mid-South, you've come to the right place. Our  company is committed to increasing sustainable operations, we currently offer commercial co-mingled recycling programs for local businesses and residential recycling for cardboard, paper, aluminum, and plastic.
-    </p>
+    <footer class="footer-card-left">
+      <img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/>
+      <img class="logo" src="{% static 'images/recycle.jpg'%}" style="vertical-align:middle;width:210px;height:214px;"/>
+      <p>
+        If you are wondering where or what to recycle in the Mid-South, you've come to the right place. Our  company is committed to increasing sustainable operations, we currently offer commercial co-mingled recycling programs for local businesses and residential recycling for cardboard, paper, aluminum, and plastic.
+      </p>
+    </footer>
+    <footer class="footer-card-right">
+      <ul>
+        <li><a href="{% url "home"%}" class="active">Home</a></li>
+        <li><a href="{% url "about"%}">About</a></li>
+        <li><a href="{% url "services"%}">Services</a></li>
+        <li><a href="{% url "gallery"%}">Gallery</a></li>
+        <li><a href="{% url "contactUs"%}">Contact Us</a></li>
+      </ul>
+      <p>info.ecocleanllc@gmail.com<p>
+      <p>662-510-5715</p>
+      <div>
+        <button>
+        <a href="{% url "book_us" %}">Book Us</a>
+        </button>
+      </div>
+    </footer>
+    </footer>
 
-    <ul>
-      <li><a href="{% url "home"%}" class="active">Home</a></li>
-      <li><a href="{% url "about"%}">About</a></li>
-      <li><a href="{% url "services"%}">Services</a></li>
-      <li><a href="{% url "gallery"%}">Gallery</a></li>
-      <li><a href="{% url "contactUs"%}">Contact Us</a></li>
-    </ul>
-    <p>info.ecocleanllc@gmail.com<p>
-    <p>662-510-5715</p>
-    <div class="btn-sec">
-      <button>
-      <a href="{% url "book_us" %}">Book Us</a>
-      </button>
-    </div>
-  </footer>
 
   {% include 'chatbot.html' %}
 
