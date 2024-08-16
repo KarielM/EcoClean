@@ -409,6 +409,7 @@ button a {
 }
 
 .service{
+  
   text-align: center;
   border-bottom:rgba(3, 3, 34, 0.7) solid;
   justify-content: space-between;
@@ -495,11 +496,24 @@ hr {
     align-items: center;
     gap: 30px;
   }
+  .service-sec{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  .service{
+    width: 400px;
+  }
 
   .card {
     width: 400px;
   }
   .card-sec {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+  .service-sec{
     grid-template-columns: repeat(2, 1fr);
     place-items: center;
   }
@@ -625,6 +639,11 @@ hr {
   }
 
   .card-sec {
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
+  }
+
+  .service-sec{
     grid-template-columns: repeat(1, 1fr);
     align-items: center;
   }
