@@ -26,6 +26,7 @@
   background-image: linear-gradient(rgba(9, 5, 54, 0.3), rgba(5, 4, 46, 0.7)),
     url(../images/upper-bg.png);
   padding: 0 5%;
+  --fill-layer-background-media-position: fixed;
 }
 
 .navbar {
@@ -156,6 +157,17 @@ button a {
   width: 100%;
 }
 
+.sec{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 5%;
+}
+
+
 .content-sec {
   width: 100%;
   height: fit-content;
@@ -164,6 +176,17 @@ button a {
   flex-direction: column;
   align-items: center;
   padding: 5rem 5%;
+  background-color: #77b829;
+ 
+}
+
+.sec h3{
+  font-size: 70px;
+  font-weight:700;
+  margin-left:150px;
+  margin-right:450px;
+  margin-bottom:40px;
+
 }
 
 .top-sec {
@@ -182,18 +205,21 @@ button a {
   margin-bottom: 15px;
 }
 
-strong {
-  font-size: 35px;
+.content-sec strong {
+  font-size: 50px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #77b829;
-  background-color: #f9f9f9;
+  color: white;
+  /* background-color: #f9f9f9; */
   border-radius: 7px;
   padding: 5px 20px;
+  
+  
+
 }
 
 .content-sec p {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .content-sec span {
@@ -313,7 +339,7 @@ strong {
   align-items: center;
 
   /* gap: 20px; */
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
   padding: 40px 25px;
   border-radius: 15px;
   transition: 0.3s;
@@ -341,32 +367,64 @@ strong {
 
 .card img,
 .card2 img {
-  width: 4rem;
+  width: 5rem;
 }
 
 .stat-sec {
   width: 100%;
   display: flex;
   margin-top: 50px;
-  padding: 0 20%;
+  padding: 0 10%;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 50px;
 }
 
 .stat-card {
-  max-width: 200px;
+  max-width: 250px;
   width: 100%;
   text-align: center;
   padding: 20px;
   margin: 10px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  border-bottom:rgba(3, 2, 29, 0.7) solid;
 }
 
 .stat-card h1 {
-  font-size: 50px;
+  font-size: 70px;
   font-weight: 700;
+  color:rgba(3, 2, 29, 0.7)
+}
+
+.service-sec{
+  max-width: 1470px;
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+  gap: 40px;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.service{
+  text-align: center;
+  border-bottom:rgba(3, 3, 34, 0.7) solid;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  
+}
+.service h2{
+  margin-top: 30px;
+  margin-bottom: 40px;
+  color: rgba(3, 3, 34, 0.7)
+}
+
+.service img{
+  width: 400px;
+  height: 400px;
 }
 
 .footer-sec {
