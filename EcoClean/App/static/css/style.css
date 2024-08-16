@@ -105,6 +105,16 @@ button a {
   text-decoration: none;
 }
 
+strong {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: black;
+  border-radius: 7px;
+  padding: 5px 20px;
+}
+
 .bottom-sec {
   max-width: 1170px;
   width: 100%;
@@ -157,7 +167,7 @@ button a {
   width: 100%;
 }
 
-.sec{
+.sec {
   width: 100%;
   height: fit-content;
   display: flex;
@@ -166,7 +176,6 @@ button a {
   align-items: center;
   padding: 5rem 5%;
 }
-
 
 .content-sec {
   width: 100%;
@@ -176,17 +185,15 @@ button a {
   flex-direction: column;
   align-items: center;
   padding: 5rem 5%;
-  background-color: #77b829;
- 
+  background-color: white;
 }
 
-.sec h3{
+.sec h3 {
   font-size: 70px;
-  font-weight:700;
-  margin-left:150px;
-  margin-right:450px;
-  margin-bottom:40px;
-
+  font-weight: 700;
+  margin-left: 150px;
+  margin-right: 450px;
+  margin-bottom: 40px;
 }
 
 .top-sec {
@@ -205,7 +212,7 @@ button a {
   margin-bottom: 15px;
 }
 
-.content-sec strong {
+.content-sec-variant strong {
   font-size: 50px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -213,9 +220,6 @@ button a {
   /* background-color: #f9f9f9; */
   border-radius: 7px;
   padding: 5px 20px;
-  
-  
-
 }
 
 .content-sec p {
@@ -385,16 +389,38 @@ button a {
   text-align: center;
   padding: 20px;
   margin: 10px;
-  border-bottom:rgba(3, 2, 29, 0.7) solid;
+  border-bottom: rgba(3, 2, 29, 0.7) solid;
 }
 
 .stat-card h1 {
   font-size: 70px;
   font-weight: 700;
-  color:rgba(3, 2, 29, 0.7)
+  color: rgba(3, 2, 29, 0.7);
 }
 
-.service-sec{
+.service-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 5%;
+  background-color: white;
+}
+
+.content-sec-variant {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 5%;
+  background-color: #77b829;
+}
+
+.service-sec {
   max-width: 1470px;
   width: 100%;
   height: fit-content;
@@ -408,21 +434,19 @@ button a {
   margin-top: 2rem;
 }
 
-.service{
-  
+.service {
   text-align: center;
-  border-bottom:rgba(3, 3, 34, 0.7) solid;
+  border-bottom: rgba(3, 3, 34, 0.7) solid;
   justify-content: space-between;
   margin-bottom: 40px;
-  
 }
-.service h2{
+.service h2 {
   margin-top: 30px;
   margin-bottom: 40px;
-  color: rgba(3, 3, 34, 0.7)
+  color: rgba(3, 3, 34, 0.7);
 }
 
-.service img{
+.service img {
   width: 400px;
   height: 400px;
 }
@@ -469,19 +493,28 @@ button a {
 }
 
 .customers-sec {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.customers-card {
-  max-width: 30%;
-}
-hr {
+.customers-sec hr {
   max-width: 20%;
-  margin-top: 10px;
+}
+
+.customers-card {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+hr {
+  max-width: 100%;
   margin-bottom: 40px;
-  border-top: 4px solid #282828;
+  border-top: 8px solid black;
 }
 
 @media (max-width: 1080px) {
@@ -496,13 +529,13 @@ hr {
     align-items: center;
     gap: 30px;
   }
-  .service-sec{
+  .service-sec {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 30px;
   }
-  .service{
+  .service {
     width: 400px;
   }
 
@@ -513,9 +546,14 @@ hr {
     grid-template-columns: repeat(2, 1fr);
     place-items: center;
   }
-  .service-sec{
+  .service-sec {
     grid-template-columns: repeat(2, 1fr);
     place-items: center;
+  }
+
+  .stat-sec {
+    justify-content: center;
+    align-items: center;
   }
 
   .footer-sec {
@@ -532,6 +570,12 @@ hr {
   .footer-card-right {
     margin-top: 40px;
     text-align: center;
+  }
+
+  .customers-sec {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -643,7 +687,7 @@ hr {
     align-items: center;
   }
 
-  .service-sec{
+  .service-sec {
     grid-template-columns: repeat(1, 1fr);
     align-items: center;
   }
