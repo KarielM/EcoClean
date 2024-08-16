@@ -32,7 +32,7 @@ EMAIL_HOST_USER = "ecocleanbusiness2024@gmail.com"
 EMAIL_HOST_PASSWORD = "fyho gsri ieig ssmu"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ecoclean-production.up.railway.app']
 
 
 # Application definition
