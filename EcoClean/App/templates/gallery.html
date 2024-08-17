@@ -1,26 +1,106 @@
 {% extends "base.html" %}
 {% load static %}
-{%block content%}
+{% block content %}
 <div class="content-sec">
   <strong>Gallery</strong>
-    <div class="gallery">
-      <img src="{% static "images/gallery/1.jpg" %}" alt="Gallery Image 1">
-      <img src="{% static "images/gallery/2.jpg" %}" alt="Gallery Image 2">
-      <img src="{% static "images/gallery/3.jpg" %}" alt="Gallery Image 2">
-      <img src="{% static "images/gallery/4.jpg" %}" alt="Gallery Image 4">
-      <img src="{% static "images/gallery/5.jpg" %}" alt="Gallery Image 5">
-      <img src="{% static "images/gallery/6.jpg" %}" alt="Gallery Image 6">
-    </div>
+  <div class="gallery">
+    <img src="{% static "images/gallery/1.jpg" %}" alt="Gallery Image 1">
+    <img src="{% static "images/gallery/2.jpg" %}" alt="Gallery Image 2">
+    <img src="{% static "images/gallery/3.jpg" %}" alt="Gallery Image 3">
+    <img src="{% static "images/gallery/4.jpg" %}" alt="Gallery Image 4">
+    <img src="{% static "images/gallery/5.jpg" %}" alt="Gallery Image 5">
+    <img src="{% static "images/gallery/6.jpg" %}" alt="Gallery Image 6">
+  </div>
 
-  <div class="modal" id="ecoModal">
-      <span class="close">&times;</span>
-      <img src="" alt="" class="modal-content" id="img01">
-    </div>
+  <div class="modal">
+    <img src="{% static "" %}" alt="">
+    <span>&times;</span>
+  </div>
+</div>
 
-    <script>
+<style>
+  .gallery {
+    display: flex;
+    max-width: 1170px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery img {
+    padding: 10px;
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    object-position: bottom;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, opacity 0.5s;
+  }
+  
+  .gallery img:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal img {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    border: 5px solid #fff;
+    border-radius: 5px;
+  }
+
+  .modal span {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    font-weight: bolder;
+    width: 100px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0,0,0,0.7);
+    padding: 5px;
+    border-radius: 10px;
+    z-index: 101;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.gallery img').forEach(image => {
+    image.onclick = () => {
+      document.querySelector('.modal').style.display = 'flex';
+      document.querySelector('.modal img').src = image.getAttribute('src');
+    }
+  })
+
+  document.querySelector('.modal span').onclick = () => {
+    document.querySelector('.modal').style.display = 'none';
+  }
+</script>
+{% endblock %}
+
+
+    {% comment %} <script>
       var modal = document.getElementById("ecoModal");
 
-      var modalImg = document.getElementById("img01")
+      var modalImg = document.getElementById("img01");
       var images = document.querySelectorAll(".gallery img");
 
       images.forEach(image => {
@@ -36,7 +116,5 @@
       span.onclick = function(){
         modal.style.display = "none";
       }
-    </script> 
+    </script>  {% endcomment %}
 
-    </div>  
-{% endblock %}
