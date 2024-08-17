@@ -115,6 +115,7 @@
   #send-btn {
     width: 100%;
     margin-top: 10px;
+    color: white;
   }
 
   #typing-indicator {
@@ -142,10 +143,30 @@
     line-height: 12px;
   }
 
-  #bot-message {
-
+  .user-message {
+    display:flex;
+    justify-content: flex-end;
+    background-color: #1E1D2E;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content%;
+    {% comment %} max-width: 80%; {% endcomment %}
+    margin-bottom: 5px;
+    margin-left: auto;
   }
   
+  .bot-message {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    align-self: flex-start;
+    margin-bottom: 5px;
+    float: left;
+  }
+
 </style>
 
 <script>
