@@ -16,8 +16,8 @@ class ZipCodeForm(forms.Form):
 
 
 class ContactUsForm(forms.Form):
-    name = forms.CharField(label="Name", max_length=100)
-    email = forms.EmailField(label="Email")
+    name = forms.CharField(label="Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))
+    email = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
     phone_number = forms.CharField(
         label="Phone Number",
         max_length=11,
@@ -27,9 +27,9 @@ class ContactUsForm(forms.Form):
                 message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.',
             )
         ],
-        required=False,
-    )
-    message = forms.CharField(label="Message", widget=forms.Textarea)
+        required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Phone Number'}
+    ))
+    message = forms.CharField(label="Message", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message'}))
 
 
 from django import forms
