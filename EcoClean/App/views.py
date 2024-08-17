@@ -29,10 +29,13 @@ def services(request):
 def contact(request):
     return render(request, "contact.html")
 
+
 def gallery(request):
     return render(request, "gallery.html")
 
+
 ZIPCODE_FILE_PATH = os.path.join(settings.BASE_DIR, "zipcode.json")
+
 
 def load_zip_codes():
     with open(ZIPCODE_FILE_PATH, "r") as file:
@@ -44,7 +47,7 @@ def load_zip_codes():
 def validate_zipcode(request):
     print(request.POST.get("code"))
     zip_code = request.GET.get("code")
-    print (zip_code)
+    print(zip_code)
     try:
         zip_code = int(zip_code)
     except (TypeError, ValueError):
@@ -79,34 +82,41 @@ def contactFormView(request):
                     email_body,
                     email,
                     [settings.EMAIL_HOST_USER],
-                    fail_silently=False
+                    fail_silently=False,
                 )
-                return redirect('home')
+                return redirect("home")
             except Exception as e:
                 print(f"Error sending email: {e}")
-                return redirect('home')
-                
+                return redirect("home")
+
     else:
         form = ContactUsForm()
     return render(request, "contactUs.html", {"form": form})
+
 
 def bookUsView(request):
     if request.method == "POST":
         form = BookUsForm(request.POST)
 
         if form.is_valid():
-            business_name = form.cleaned_data['business_name']
+            business_name = form.cleaned_data["business_name"]
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             phone_number = form.cleaned_data["phone_number"]
             date = form.cleaned_data["date_requested"]
             street_address_1 = form.cleaned_data["street_address_1"]
-            street_address_2 = None if form.cleaned_data["street_address_2"] is not None else form.cleaned_data["street_address_2"]
+            street_address_2 = (
+                None
+                if form.cleaned_data["street_address_2"] is not None
+                else form.cleaned_data["street_address_2"]
+            )
             city = form.cleaned_data["city"]
             state = form.cleaned_data["state"]
+            print(state)
             zip_code = form.cleaned_data["zip_code"]
-            time = form.cleaned_data["time"]
-            print(f"Date:{date},Time:{time}")
+            time_of_day, time_range = form.get_value_and_display_text()
+            print(time_of_day)
+            print(time_range)
 
             email_body = (
                 "I would like to schedule an appointment and am providing the necessary details below:\n"
@@ -118,28 +128,23 @@ def bookUsView(request):
                 + (f" {street_address_2}" if street_address_2 else "")
                 + f", {city}, {state} {zip_code}\n"
                 f"Preferred Date: {date}\n"
-                f"Preferred Time: {time}\n"
-
+                f"Preferred Time: {time_of_day}, {time_range}\n"
                 "Please let me know if this time is available or if there are any other suitable time slots. If you need any additional information to confirm the appointment, feel free to reach out.\n"
-
                 "Thank you for your assistance, and I look forward to your response.\n"
-
                 "Best regards,\n"
                 f"{name}"
             )
-
-
             try:
                 send_mail(
                     "Booking Request",
                     email_body,
                     email,
                     [settings.EMAIL_HOST_USER],
-                    fail_silently=False
+                    fail_silently=False,
                 )
-                return redirect('home')
+                return redirect("home")
             except Exception as e:
                 print(f"Error sending email: {e}")
     else:
         form = BookUsForm()
-    return render(request, "bookUs.html", {"form":form})
+    return render(request, "bookUs.html", {"form": form})

@@ -28,6 +28,11 @@
           <button>
           <a href="{% url "book_us" %}">Book Us</a>
           </button>
+          <div class="toggle-btn" id="toggleBtn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
         </div>
       </div>
 
@@ -86,7 +91,14 @@
     </footer>
     </footer>
 
+    <script>
+      var listSec = document.getElementById("listSec");
+      var toggleBtn = document.getElementById("toggleBtn");
 
+      toggleBtn.addEventListener("click", () => {
+        listSec.classList.toggle("show");
+      });
+    </script>
   {% include 'chatbot.html' %}
 
   </html>

@@ -115,6 +115,7 @@
   #send-btn {
     width: 100%;
     margin-top: 10px;
+    color: white;
   }
 
   #typing-indicator {
@@ -141,6 +142,35 @@
     font-size: 12px;
     line-height: 12px;
   }
+
+  .user-message {
+    justify-content: flex-end;
+    background-color: #1E1D2E;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 7px;
+    margin-left: auto;
+    margin-right: .5em;
+    width: fit-content;
+    max-width: 80%;
+    word-wrap:break-word;
+  }
+  
+  .bot-message {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 5px;
+    border-radius: 10px;
+    max-width: 80%;
+    align-self: flex-start;
+    margin-bottom: 7px;
+  }
+
+  .suggestionsList {
+    padding-left: 3em;
+  }
+
 </style>
 
 <script>
@@ -184,10 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const typingIndicator = document.getElementById('typing-indicator');
 
   const faqKeywords = {
-    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
-    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative"],
-    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment"],
-    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
+    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place", 2],
+    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative", "email", 4],
+    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment", 1, "booking"],
+    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services", 3]
   };
 
   const faqs = {
@@ -230,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleUserInput() {
     const inputText = userInput.value.trim();
-    if (inputText && /^[a-zA-Z0-9\s]*$/.test(inputText)) {
+    if (inputText &&/^[a-zA-Z0-9\s.,!?;:()'"-]*$/.test(inputText)) {
       addMessage(inputText, true);
       userInput.value = '';
       typingIndicator.style.display = 'block';
@@ -262,10 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateSuggestedUserInput() {
     const suggestedInputHTMLDiv = `
     <div class="suggestions-container">
-      <p>Sorry, I'm not sure what you're asking. You can ask me about:</p>
-      <ul class="suggestionsList">
+      <p>Sorry, I'm not sure what you're asking. Please choose from our following options:</p>
+      <ol class="suggestionsList">
         ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
-      </ul>
+      </ol>
     </div>
     `;
     return suggestedInputHTMLDiv;
