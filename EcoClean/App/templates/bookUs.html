@@ -2,13 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div>
+<div class="content-sec">
+    <div class="book-us">
     <h1>Book Us</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Send</button>
     </form>
+</div>
 </div>
 {% endblock content %}
 

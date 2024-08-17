@@ -38,9 +38,9 @@ from django.core.validators import RegexValidator
 from datetime import time
 
 class BookUsForm(forms.Form):
-    business_name = forms.CharField(label="Business Name", max_length=250)
-    name = forms.CharField(label="Name", max_length=100)
-    email = forms.EmailField(label="Email")
+    business_name = forms.CharField(label="Business Name", max_length=250, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    name = forms.CharField(label="Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    email = forms.EmailField(label="Email", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
     phone_number = forms.CharField(
         label="Phone Number",
         max_length=11,
@@ -50,12 +50,12 @@ class BookUsForm(forms.Form):
                 message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.',
             )
         ],
-        required=False,
+        required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
     )
-    street_address_1 = forms.CharField(label="Street Address", max_length=250)
-    street_address_2 = forms.CharField(label="Apt./Suite", max_length=250, required=False)
-    city = forms.CharField(label="City", max_length=50)
-    state = forms.CharField(label="State", max_length=2)
+    street_address_1 = forms.CharField(label="Street Address", max_length=250, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    street_address_2 = forms.CharField(label="Apt./Suite", max_length=250, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    city = forms.CharField(label="City", max_length=50, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    state = forms.CharField(label="State", max_length=2, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
     zip_code = forms.CharField(
         label="ZIP",
         max_length=5,
@@ -65,10 +65,10 @@ class BookUsForm(forms.Form):
                 message='ZIP code must contain only digits.'
             )
         ],
-        required=True
+        required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
     )
-    date_requested = forms.DateField(input_formats=['%m/%d/%Y'], required=True)
-    time = forms.TimeField(input_formats=['%I:%M %p'], required=True)
+    date_requested = forms.DateField(input_formats=['%m/%d/%Y'], required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    time = forms.TimeField(input_formats=['%I:%M %p'], required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
 
     def clean(self):
         cleaned_data = super().clean()
