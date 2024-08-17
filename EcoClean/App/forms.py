@@ -3,8 +3,6 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from datetime import time
 from App.models import *
-
-import json
 import os
 from django.conf import settings
 
@@ -16,8 +14,19 @@ class ZipCodeForm(forms.Form):
 
 
 class ContactUsForm(forms.Form):
-    name = forms.CharField(label="Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))
-    email = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
+    name = forms.CharField(
+        label="Name",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Name"}
+        ),
+    )
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Your Email"}
+        ),
+    )
     phone_number = forms.CharField(
         label="Phone Number",
         max_length=11,
@@ -27,20 +36,44 @@ class ContactUsForm(forms.Form):
                 message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.',
             )
         ],
-        required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Phone Number'}
-    ))
-    message = forms.CharField(label="Message", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message'}))
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Phone Number"}
+        ),
+    )
+    message = forms.CharField(
+        label="Message",
+        widget=forms.Textarea(
+            attrs={"class": "form-control", "placeholder": "Your Message"}
+        ),
+    )
 
-
-from django import forms
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
-from datetime import time
 
 class BookUsForm(forms.Form):
-    business_name = forms.CharField(label="Business Name", max_length=250, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    name = forms.CharField(label="Name", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    email = forms.EmailField(label="Email", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    Time_Slot_Options = (
+        ("Morning", "8:00 AM - 12:30 PM"),
+        ("Afternoon", "12:30 PM - 4:30 PM"),
+    )
+    States_Serviced = (
+        ("MS", "Mississippi"),
+        ("AR", "Arkansas"),
+        ("TN", "Tennessee"),
+    )
+
+    business_name = forms.CharField(
+        label="Business Name",
+        max_length=250,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    name = forms.CharField(
+        label="Name",
+        max_length=100,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
     phone_number = forms.CharField(
         label="Phone Number",
         max_length=11,
@@ -50,41 +83,63 @@ class BookUsForm(forms.Form):
                 message='Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.',
             )
         ],
-        required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
     )
-    street_address_1 = forms.CharField(label="Street Address", max_length=250, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    street_address_2 = forms.CharField(label="Apt./Suite", max_length=250, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    city = forms.CharField(label="City", max_length=50, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    state = forms.CharField(label="State", max_length=2, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    street_address_1 = forms.CharField(
+        label="Street Address",
+        max_length=250,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    street_address_2 = forms.CharField(
+        label="Apt./Suite",
+        max_length=250,
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    city = forms.CharField(
+        label="City",
+        max_length=50,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    state = forms.ChoiceField(
+        label="State",
+        choices=States_Serviced,
+        widget=forms.RadioSelect,
+        required=True,
+        initial=None,
+        # widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
     zip_code = forms.CharField(
         label="ZIP",
         max_length=5,
         validators=[
-            RegexValidator(
-                regex=r'^\d+$',
-                message='ZIP code must contain only digits.'
-            )
+            RegexValidator(regex=r"^\d+$", message="ZIP code must contain only digits.")
         ],
-        required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''})
+        required=True,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
     )
-    date_requested = forms.DateField(input_formats=['%m/%d/%Y'], required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
-    time = forms.TimeField(input_formats=['%I:%M %p'], required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''}))
+    date_requested = forms.DateField(
+        input_formats=["%m/%d/%Y"],
+        required=True,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+    )
+    time = forms.ChoiceField(
+        label="Time Slot Requested:", choices=Time_Slot_Options, required=False
+    )
 
     def clean(self):
         cleaned_data = super().clean()
-        date_requested = cleaned_data.get('date_requested')
-        time_requested = cleaned_data.get('time')
-
-        if time_requested:
-            start_time = time(8, 0)
-            end_time = time(16, 30)
-            if not (start_time <= time_requested <= end_time):
-                raise ValidationError(f'Requested time must be between {start_time.strftime("%H:%M %p")} and {end_time.strftime("%I:%M %p")}.')
+        date_requested = cleaned_data.get("date_requested")
 
         if date_requested:
-            cleaned_data['date_requested'] = date_requested.strftime('%m/%d/%Y')
-        if time_requested:
-            cleaned_data['time'] = time_requested.strftime('%I:%M %p')
+            cleaned_data["date_requested"] = date_requested.strftime("%m/%d/%Y")
 
         return cleaned_data
 
+    def get_value_and_display_text(self):
+        selected_time_value = self.cleaned_data.get("time")
+        selected_time_display_text = dict(self.Time_Slot_Options).get(
+            selected_time_value
+        )
+        return selected_time_value, selected_time_display_text
