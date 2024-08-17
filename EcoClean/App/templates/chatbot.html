@@ -144,15 +144,16 @@
   }
 
   .user-message {
-    display:flex;
     justify-content: flex-end;
     background-color: #1E1D2E;
     color: white;
     padding: 5px;
     border-radius: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     margin-left: auto;
-    max-width: fit-content%;
+    width: fit-content;
+    max-width: 80%;
+    word-wrap:break-word;
   }
   
   .bot-message {
@@ -162,8 +163,7 @@
     border-radius: 10px;
     max-width: 80%;
     align-self: flex-start;
-    margin-bottom: 5px;
-    float: left;
+    margin-bottom: 7px;
   }
 
 </style>
@@ -209,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const typingIndicator = document.getElementById('typing-indicator');
 
   const faqKeywords = {
-    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place"],
-    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative"],
-    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment"],
-    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services"]
+    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place", 1],
+    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative", 2],
+    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment", 3],
+    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services", 4]
   };
 
   const faqs = {
