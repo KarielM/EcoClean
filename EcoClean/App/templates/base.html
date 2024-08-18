@@ -5,18 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EcoClean</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
     <div class="main-container">
       <div class="navbar">
         <a href="/"><img class="logo" src="{% static 'images/logo2.png'%}"></a>
-        {% comment %} <a><img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:210px;height:214px;"></a> {% endcomment %}
-
-        {% comment %} <a href="#" class="logo">
-          Eco
-          <b>Clean</b>
-        </a> {% endcomment %}
         <ul id="listSec">
           <li><a href="{% url "home"%}">Home</a></li>
           <li><a href="{% url "about"%}">About</a></li>
@@ -40,7 +34,7 @@
         <div class="left-sec">
           <h1>
             Serving<br />Greater Memphis,<br />
-            North Mississippi, Nashville  & Eastern Arkansas
+            North Mississippi, Nashville & Eastern Arkansas
           </h1>
           <p>
             Eco Clean is committed to delivering high-quality and sustainable
@@ -49,20 +43,20 @@
           </p>
           <button>
             <a href="{% url "book_us" %}">Book Us</a>
-            </button>
+          </button>
         </div>
-        {% comment %} <div class="right-sec"><img class="right-img" src="{% static "images/blank.png" %}" /></div> {% endcomment %}
       </div>
     </div>
     {% block content %}{% endblock content %}
   </body>
+
   <hr class="footer-hr">
   <footer class="footer-sec">
     <footer class="footer-card-left">
       <img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/>
       <img class="logo" src="{% static 'images/recycle.jpg'%}" style="vertical-align:middle;width:210px;height:214px;"/>
       <p>
-        If you are wondering where or what to recycle in the Mid-South, you've come to the right place. Our  company is committed to increasing sustainable operations, we currently offer commercial co-mingled recycling programs for local businesses and residential recycling for cardboard, paper, aluminum, and plastic.
+        If you are wondering where or what to recycle in the Mid-South, you've come to the right place. Our company is committed to increasing sustainable operations, we currently offer commercial co-mingled recycling programs for local businesses and residential recycling for cardboard, paper, aluminum, and plastic.
       </p>
     </footer>
     <footer class="footer-card-right">
@@ -81,16 +75,27 @@
         </button>
       </div>
     </footer>
-    </footer>
+  </footer>
 
-    <script>
-      var listSec = document.getElementById("listSec");
-      var toggleBtn = document.getElementById("toggleBtn");
+  <script>
+    var listSec = document.getElementById("listSec");
+    var toggleBtn = document.getElementById("toggleBtn");
 
-      toggleBtn.addEventListener("click", () => {
-        listSec.classList.toggle("show");
+    toggleBtn.addEventListener("click", () => {
+      listSec.classList.toggle("show");
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUrl = window.location.pathname;
+      const menuItems = document.querySelectorAll('#listSec li a');
+
+      menuItems.forEach(item => {
+        if (item.getAttribute('href') === currentUrl) {
+          item.classList.add('active');
+        }
       });
-    </script>
-  {% include 'chatbot.html' %}
+    });
+  </script>
 
-  </html>
+  {% include 'chatbot.html' %}
+</html>

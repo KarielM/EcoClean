@@ -172,42 +172,11 @@
   }
 
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var chatButton = document.getElementById('chat-button');
-    var closeChatButton = document.getElementById('close-chat-button');
-  
-    chatButton.addEventListener('click', function(event) {
-      if (event.target !== closeChatButton) {
-        toggleChat();
-      }
-    });
-  
-    closeChatButton.addEventListener('click', function(event) {
-      event.stopPropagation(); 
-      var chatBox = document.getElementById('chatbox');
-      if (chatBox.style.display === 'flex') {
-        chatBox.style.display = 'none';
-      }
-      chatButton.style.display = 'none';
-    });
-  });
-  
-  function toggleChat() {
-    var chatBox = document.getElementById('chatbox');
-    if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-      chatBox.style.display = 'flex';
-    } else {
-      chatBox.style.display = 'none';
-    }
-  }
-</script>
-
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const chatbot = document.getElementById('chatbot');
+  const chatButton = document.getElementById('chat-button');
+  const closeChatButton = document.getElementById('close-chat-button');
+  const chatBox = document.getElementById('chatbox');
   const messages = document.getElementById('messages');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
@@ -230,37 +199,40 @@ document.addEventListener('DOMContentLoaded', () => {
     
     "contact": `You can contact us at (662) 510-5715 for immediate assistance or <a href="{% url 'contactUs' %}#send_us_an_email_form">send us an email</a>. We will get back to you as soon as possible. We look forward to hearing from you and are here to help with any questions or concerns you may have!`
   };
-  
 
-  function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  chatButton.addEventListener('click', function(event) {
+    if (event.target !== closeChatButton) {
+      toggleChat();
+    }
+  });
+
+  closeChatButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    if (chatBox.style.display === 'flex') {
+      chatBox.style.display = 'none';
+    }
+    chatButton.style.display = 'none';
+  });
+
+  function toggleChat() {
+    if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+      chatBox.style.display = 'flex';
+      setTimeout(addQuickLinks, 500);
+    } else {
+      chatBox.style.display = 'none';
+    }
   }
 
-  function escapeHTML(str) {
-    return str.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
-  }
-
-  function addMessage(text, isUser = false) {
-    const messageText = isUser ? escapeHTML(text) : text;
-    
-    const messageHTML = `
-      <div class="${isUser ? 'user-message' : 'bot-message'}">
-        ${messageText}
-      </div>
-    `;
-  
-    messages.insertAdjacentHTML('beforeend', messageHTML);
-    messages.scrollTop = messages.scrollHeight;
-  }
-  
+  sendBtn.addEventListener('click', handleUserInput);
+  userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      handleUserInput();
+    }
+  });
 
   function handleUserInput() {
     const inputText = userInput.value.trim();
-    if (inputText &&/^[a-zA-Z0-9\s.,!?;:()'"-]*$/.test(inputText)) {
+    if (inputText && /^[a-zA-Z0-9\s.,!?;:()'"-]*$/.test(inputText)) {
       addMessage(inputText, true);
       userInput.value = '';
       typingIndicator.style.display = 'block';
@@ -269,14 +241,25 @@ document.addEventListener('DOMContentLoaded', () => {
         typingIndicator.style.display = 'none';
         const response = getResponse(inputText) || generateSuggestedUserInput();
         addMessage(response);
-        if (response.includes("<div id='contact-container'></div>")) {
-          loadContactHTML();
-          messages.scrollTop = messages.scrollHeight;
-        }
-      }, 2000);
+      }, 3000);
     } else {
       addMessage("Please enter a valid message.");
     }
+  }
+
+  function addMessage(text, isUser = false) {
+    const messageText = isUser ? escapeHTML(text) : text;
+    const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText}</div>`;
+    messages.insertAdjacentHTML('beforeend', messageHTML);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#039;');
   }
 
   function getResponse(userInput) {
@@ -291,47 +274,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateSuggestedUserInput() {
     const suggestedInputHTMLDiv = `
-    <div class="suggestions-container">
-      <p>Sorry, I'm not sure what you're asking. Please choose from our following options:</p>
-      <ol class="suggestionsList">
-        ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
-      </ol>
-    </div>
+      <div class="suggestions-container">
+        <p>Sorry, I'm not sure what you're asking. Please choose from our following options:</p>
+        <ol class="suggestionsList">
+          ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
+        </ol>
+      </div>
     `;
     return suggestedInputHTMLDiv;
   }
 
-  function loadContactHTML() {
-    fetch('/contact')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();
-      })
-      .then(html => {
-        document.getElementById('contact-container').innerHTML = html;
-      })
-      .catch(error => {
-        console.error('Error loading contact.html:', error);
-        document.getElementById('contact-container').innerHTML = "<p>Sorry, we couldn't load the contact information at this time. Please try again later.</p>";
-      });
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  function toggleChat() {
-    var chatBox = document.getElementById('chatbox');
-    if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-      chatBox.style.display = 'flex';
-    } else {
-      chatBox.style.display = 'none';
-    }
+  function addQuickLinks() {
+    const quickLinksHTML = `
+      <div class="bot-message">
+        <p>Here are some quick links you might find useful:</p>
+      </div>
+      <br>
+      <div class="bot-message">Services</div>
+      <br>
+      <div class="bot-message">Contact Us</div>
+    `;
+    addMessage(quickLinksHTML);
   }
-
-  sendBtn.addEventListener('click', handleUserInput);
-  userInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      handleUserInput();
-    }
-  });
 });
 </script>

@@ -55,8 +55,8 @@ class BookUsForm(forms.Form):
         ("Afternoon", "12:30 PM - 4:30 PM"),
     )
     States_Serviced = (
-        ("MS", "Mississippi"),
         ("AR", "Arkansas"),
+        ("MS", "Mississippi"),
         ("TN", "Tennessee"),
     )
 
@@ -125,7 +125,9 @@ class BookUsForm(forms.Form):
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
     )
     time = forms.ChoiceField(
-        label="Time Slot Requested:", choices=Time_Slot_Options, required=False
+        label="Time Slot Requested:",
+        choices=Time_Slot_Options,
+        initial="",
     )
 
     def clean(self):
