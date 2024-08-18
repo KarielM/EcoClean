@@ -12,15 +12,15 @@
       <div class="navbar">
         <a href="/"><img class="logo" src="{% static 'images/logo2.png'%}"></a>
         <ul id="listSec">
-          <li><a href="{% url "home"%}">Home</a></li>
-          <li><a href="{% url "about"%}">About</a></li>
-          <li><a href="{% url "services"%}">Services</a></li>
-          <li><a href="{% url "gallery"%}">Gallery</a></li>
-          <li><a href="{% url "contactUs"%}">Contact Us</a></li>
+          <li><a href="{% url "home"%}#homeSection">Home</a></li>
+          <li><a href="{% url "about"%}#aboutSection">About</a></li>
+          <li><a href="{% url "services"%}#serviceSection">Services</a></li>
+          <li><a href="{% url 'gallery' %}#gallerySection">Gallery</a></li>
+          <li><a href="{% url "contactUs"%}#send_us_an_email_form">Contact Us</a></li>
         </ul>
         <div class="btn-sec">
           <button>
-          <a href="{% url "book_us" %}">Book Us</a>
+          <a href="{% url "book_us" %}#send_us_an_email_form">Book Us</a>
           </button>
           <div class="toggle-btn" id="toggleBtn">
             <div class="bar"></div>
@@ -42,7 +42,7 @@
             responsibility and customer satisfaction in all aspects of our work.
           </p>
           <button>
-            <a href="{% url "book_us" %}">Book Us</a>
+            <a href="{% url "about"%}#aboutSection">Read More</a>
           </button>
         </div>
       </div>
@@ -54,7 +54,7 @@
   <footer class="footer-sec">
     <footer class="footer-card-left">
       <div id="footer-logo">
-        <img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/>
+        <a href="{% url "home"%}"><img class="logo" src="{% static 'images/logo2.png'%}" style="vertical-align:middle;width:110px;height:114px;"/></a>
       </div>
       <div id="wrap">
         <img class="logo" src="{% static 'images/recycle.jpg'%}" style="vertical-align:middle;width:150px;height:154px;"/>
@@ -78,7 +78,7 @@
         <p>662-510-5715</p>
         <div>
           <button>
-          <a href="{% url "book_us" %}">Book Us</a>
+          <a href="{% url "book_us" %}#send_us_an_email_form">Book Us</a>
           </button>
         </div>
       </div>
