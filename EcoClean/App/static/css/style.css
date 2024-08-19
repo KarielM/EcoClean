@@ -336,11 +336,12 @@ strong {
 }
 
 #serviceContentSec {
+  place-content: center;
   text-align: center;
 }
 
 #serviceCardSec {
-  justify-content: space-between;
+  place-content: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
@@ -906,7 +907,7 @@ textarea.form-control {
       width: 100%;
     }
 
-    # .gallery .modal img {
+    .gallery .modal img {
       width: 95%;
     }
 
