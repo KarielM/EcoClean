@@ -335,6 +335,40 @@ strong {
   width: 4rem;
 }
 
+#serviceContentSec {
+  text-align: center;
+}
+
+#serviceCardSec {
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+#serviceCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  gap: 20;
+  position: relative;
+}
+
+#serviceCard img {
+  /* width: 100%; */
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  filter: none;
+}
+
+#serviceCardSec hr {
+  border: none;
+  border-top: 4px solid #77b829;
+  width: 100%;
+}
+
 .card:hover,
 .card2:hover {
   filter: none;
@@ -371,18 +405,6 @@ strong {
   color: #100f2c;
 }
 
-.service-container {
-  /* max-width: 1170px; */
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 5rem 5%;
-  background-color: white;
-}
-
 .content-sec-variant {
   width: 100%;
   height: fit-content;
@@ -397,40 +419,6 @@ strong {
 
 .content-sec-variant card-sec card:hover {
   color: black;
-}
-
-.service-sec {
-  /* max-width: 1470px; */
-  width: 100%;
-  height: fit-content;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  flex-direction: row;
-  gap: 40px;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.service {
-  color: #1d1c2f;
-  text-align: center;
-  border-bottom: #77b829 solid;
-  justify-content: space-between;
-  margin-bottom: 40px;
-}
-
-.service h2 {
-  margin-top: 30px;
-  margin-bottom: 40px;
-  color: rgba(3, 3, 34, 0.7);
-}
-
-.service img {
-  width: 400px;
-  height: 300px;
-  border-radius: 12px;
 }
 
 .content-sec-variant strong {
@@ -556,6 +544,10 @@ hr {
 textarea.form-control {
   height: 150px;
   resize: vertical;
+}
+
+#id_codes {
+  padding: 10px;
 }
 
 .book-us {
@@ -703,13 +695,16 @@ textarea.form-control {
   -webkit-filter: invert(100%);
 }
 
+#gallerySection {
+  padding-top: 3rem;
+}
+
 /*  */
 
 /* Media Queries */
-@media (max-width: 1380px) {
-  .service-sec {
+@media (max-width: 1180px) {
+  #serviceCardSec {
     grid-template-columns: repeat(2, 1fr);
-    place-items: center;
   }
 }
 
@@ -733,10 +728,6 @@ textarea.form-control {
     gap: 30px;
   }
 
-  .service {
-    width: 400px;
-  }
-
   .card {
     width: 400px;
   }
@@ -746,11 +737,6 @@ textarea.form-control {
   }
 
   .card-sec {
-    grid-template-columns: repeat(2, 1fr);
-    place-items: center;
-  }
-
-  .services-card-sec {
     grid-template-columns: repeat(2, 1fr);
     place-items: center;
   }
@@ -883,184 +869,196 @@ textarea.form-control {
     width: 100%;
   }
 
-  .service-sec {
-    grid-template-columns: repeat(1, 1fr);
-    place-items: center;
-  }
-
   strong {
     font-size: 18px;
   }
 }
 
-@media (max-width: 750px) {
-  #listSec {
-    margin-top: 1em;
-  }
-
-  .card-sec {
+@media (max-width: 850px) {
+  #serviceCardSec {
     grid-template-columns: repeat(1, 1fr);
     place-items: center;
   }
 
-  .services-card-sec {
-    grid-template-columns: repeat(1, 1fr);
-    place-items: center;
+  @media (max-width: 750px) {
+    #listSec {
+      margin-top: 1em;
+    }
+
+    .card-sec {
+      grid-template-columns: repeat(1, 1fr);
+      place-items: center;
+    }
+
+    .services-card-sec {
+      grid-template-columns: repeat(1, 1fr);
+      place-items: center;
+    }
+
+    #serviceCardSec {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .gallery .modal img {
+      width: 95%;
+    }
+
+    .gallery img {
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+    }
   }
 
-  .gallery .modal img {
-    width: 95%;
-  }
-}
+  @media (max-width: 600px) {
+    #listSec {
+      margin-top: 1em;
+    }
 
-@media (max-width: 600px) {
-  #listSec {
-    margin-top: 1em;
+    button {
+      width: 120px;
+      height: 43px;
+      font-size: 15px;
+    }
+
+    .left-sec button {
+      margin-bottom: 1.5rem;
+    }
+
+    .left-sec p {
+      width: 100%;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .toggle-btn .bar {
+      width: 32px;
+    }
+
+    .down-btn {
+      width: 23px;
+      height: 48px;
+    }
+
+    .left-sec h1 {
+      font-size: 38px;
+      line-height: 45px;
+    }
   }
 
-  button {
-    width: 120px;
-    height: 43px;
-    font-size: 15px;
+  /*-------------------------------- Styling the send us an email form -------------------------------*/
+  #send_us_an_email_form {
+    color: #1d1c2f;
+    padding: 25px;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-top: 2px solid #77b829;
+    border-bottom: 2px solid #77b829;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
 
-  .left-sec button {
-    margin-bottom: 1.5rem;
-  }
-
-  .left-sec p {
-    width: 100%;
-    font-size: 14px;
+  #send_us_an_email_form h1 {
+    font-size: 40px;
     margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #333;
   }
 
-  .toggle-btn .bar {
-    width: 32px;
+  #send_us_an_email_form .form-control {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 2px solid #77b829;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f4f4f4;
+    color: #333;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .down-btn {
-    width: 23px;
-    height: 48px;
+  #send_us_an_email_form .form-control:focus {
+    border-color: #66bb6a;
+    box-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
+    background-color: whitesmoke;
   }
 
-  .left-sec h1 {
-    font-size: 38px;
-    line-height: 45px;
+  #send_us_an_email_form label {
+    font-weight: bold;
+    margin-top: 15px;
   }
-}
 
-/*-------------------------------- Styling the send us an email form -------------------------------*/
-#send_us_an_email_form {
-  color: #1d1c2f;
-  padding: 25px;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  border-top: 2px solid #77b829;
-  border-bottom: 2px solid #77b829;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
+  #send_us_an_email_form button[type="submit"] {
+    background: linear-gradient(135deg, #77b829, #66bb6a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin: auto;
+  }
 
-#send_us_an_email_form h1 {
-  font-size: 40px;
-  margin-bottom: 25px;
-  text-align: center;
-  text-shadow: 1px 1px 2px #333;
-}
+  #send_us_an_email_form button[type="submit"]:hover {
+    background: linear-gradient(135deg, #66bb6a, #77b829);
+    transform: translateY(-3px);
+  }
 
-#send_us_an_email_form .form-control {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border: 2px solid #77b829;
-  border-radius: 8px;
-  font-size: 16px;
-  background: #f4f4f4;
-  color: #333;
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
+  #send_us_an_email_form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  }
 
-#send_us_an_email_form .form-control:focus {
-  border-color: #66bb6a;
-  box-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
-  background-color: whitesmoke;
-}
+  #send_us_an_email_form .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
-#send_us_an_email_form label {
-  font-weight: bold;
-  margin-top: 15px;
-}
+  #send_us_an_email_form .form-control[type="radio"] + label {
+    display: inline-block;
+    margin-right: 20px;
+  }
 
-#send_us_an_email_form button[type="submit"] {
-  background: linear-gradient(135deg, #77b829, #66bb6a);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  margin: auto;
-}
+  #send_us_an_email_form .form-control[type="radio"] + label::before {
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-#send_us_an_email_form button[type="submit"]:hover {
-  background: linear-gradient(135deg, #66bb6a, #77b829);
-  transform: translateY(-3px);
-}
+  #id_state {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+  }
 
-#send_us_an_email_form button[type="submit"]:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-}
+  #id_state label {
+    flex: none;
+    padding-right: 20px;
+  }
 
-#send_us_an_email_form .button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
+  #id_time {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 2px solid #77b829;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+    color: #333;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
 
-#send_us_an_email_form .form-control[type="radio"] + label {
-  display: inline-block;
-  margin-right: 20px;
-}
+  #id_time:focus {
+    border-color: #66bb6a;
+    box-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
+    background-color: whitesmoke;
+  }
 
-#send_us_an_email_form .form-control[type="radio"] + label::before {
-  display: inline-block;
-  margin-right: 5px;
-}
-
-#id_state {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 1em;
-  margin-top: 0.5em;
-}
-
-#id_state label {
-  flex: none;
-  padding-right: 20px;
-}
-
-#id_time {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border: 2px solid #77b829;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: #f4f4f4;
-  color: #333;
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#id_time:focus {
-  border-color: #66bb6a;
-  box-shadow: 0 0 8px rgba(102, 187, 106, 0.5);
-  background-color: whitesmoke;
-}
-
-#id_time option {
-  background-color: #f4f4f4;
-  color: #333;
+  #id_time option {
+    background-color: #f4f4f4;
+    color: #333;
+  }
 }
