@@ -897,9 +897,16 @@ textarea.form-control {
 
     #serviceCardSec {
       grid-template-columns: repeat(1, 1fr);
+      place-content: center;
+      padding: 0;
+      margin: 0;
     }
 
-    .gallery .modal img {
+    #serviceCard img {
+      width: 100%;
+    }
+
+    # .gallery .modal img {
       width: 95%;
     }
 
