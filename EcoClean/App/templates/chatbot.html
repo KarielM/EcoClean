@@ -165,11 +165,33 @@
     max-width: 80%;
     align-self: flex-start;
     margin-bottom: 7px;
+    margin-top: 5px;
   }
 
   .suggestionsList {
     padding-left: 3em;
   }
+
+  .bot-message .quick-link {
+    color: #1d1c2f;
+    {% comment %} background-color: #d6d6f2; {% endcomment %}
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.bot-message .quick-link:hover {
+    background-color: #c2c2e6;
+    width: 100%;
+}
+
+.quick-link a {
+  text-decoration: none;
+}
+
 
 </style>
 <script>
@@ -248,11 +270,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addMessage(text, isUser = false) {
-    const messageText = isUser ? escapeHTML(text) : text;
-    const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText}</div>`;
-    messages.insertAdjacentHTML('beforeend', messageHTML);
-    messages.scrollTop = messages.scrollHeight;
-  }
+    const messages = isUser ? [text] : text.split(/(?=<div)/).filter(Boolean);
+
+    messages.forEach(messageText => {
+        if (messageText.trim()) {
+            const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText.trim()}</div>`;
+            document.getElementById('messages').insertAdjacentHTML('beforeend', messageHTML);
+        }
+    });
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+}
+
+
 
   function escapeHTML(str) {
     return str.replace(/&/g, '&amp;')
@@ -293,10 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="bot-message">
         <p>Here are some quick links you might find useful:</p>
       </div>
-      <br>
-      <div class="bot-message">Services</div>
-      <br>
-      <div class="bot-message">Contact Us</div>
+      <div class="quick-link"> <a href="{% url 'services' %}">Services</a></div>
+      <div class="quick-link"><a href="{% url 'contactUs' %}">Contact Us</a></div>
     `;
     addMessage(quickLinksHTML);
   }
