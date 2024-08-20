@@ -1,42 +1,3 @@
-{% comment %} <div id="chatbot">
-  <div id="chatbox">
-    <div id="chatbox-header">Chat with us!</div>
-    <div id="chatbox-body">
-      <div id="messages"></div>
-      <textarea id="user-input" placeholder="Type your message..."></textarea>
-      <button id="send-btn">Send</button>
-      <div id="typing-indicator">
-        <div class="typing-indicator-dot"></div>
-        <div class="typing-indicator-dot"></div>
-        <div class="typing-indicator-dot"></div>
-      </div>
-    </div>
-  </div>
-</div> {% endcomment %}
-
-<div id="chatbot">
-  <div id="chat-button">
-    <i class="material-icons">Need Help?</i>
-    <span id="close-chat-button">X</span>
-  </div>
-  <div id="chatbox">
-    <div id="chatbox-header">
-      Chat with us!
-      <span id="closePOPUPCHATDIV">x</span>
-    </div>
-    <div id="chatbox-body">
-      <div id="messages"></div>
-      <textarea id="user-input" placeholder="Type your message..."></textarea>
-      <button id="send-btn">Send</button>
-      <div id="typing-indicator">
-        <div class="typing-indicator-dot"></div>
-        <div class="typing-indicator-dot"></div>
-        <div class="typing-indicator-dot"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <style>
   #chat-button {
     position: fixed;
@@ -79,10 +40,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  #close-chat {
-    cursor: pointer;
   }
 
   #chatbox-body {
@@ -156,7 +113,7 @@
     max-width: 80%;
     word-wrap:break-word;
   }
-  
+
   .bot-message {
     background-color: #f1f1f1;
     color: #333;
@@ -174,176 +131,162 @@
 
   .bot-message .quick-link {
     color: #1d1c2f;
-    {% comment %} background-color: #d6d6f2; {% endcomment %}
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     display: inline-block;
     max-width: 100%;
-}
+  }
 
-.bot-message .quick-link:hover {
+  .bot-message .quick-link:hover {
     background-color: #c2c2e6;
     width: 100%;
-}
+  }
 
-.quick-link a {
-  text-decoration: none;
-}
-
-
+  .quick-link a {
+    text-decoration: none;
+  }
 </style>
+</head>
+<body>
+
+<div id="chatbot">
+<div id="chat-button">
+  <i class="material-icons">Need Help?</i>
+  <span id="close-chat-button">X</span>
+</div>
+<div id="chatbox">
+  <div id="chatbox-header">
+    Chat with us!
+    <span id="closePOPUPCHATDIV">x</span>
+  </div>
+  <div id="chatbox-body">
+    <div id="messages"></div>
+    <textarea id="user-input" placeholder="Type your message..."></textarea>
+    <button id="send-btn">Send</button>
+    <div id="typing-indicator">
+      <div class="typing-indicator-dot"></div>
+      <div class="typing-indicator-dot"></div>
+      <div class="typing-indicator-dot"></div>
+    </div>
+  </div>
+</div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const chatButton = document.getElementById('chat-button');
-  const closeChatButton = document.getElementById('closePOPUPCHATDIV');
-  const closeChatActualButtonAndNotDiv = document.getElementById('close-chat-button');
-  const chatBox = document.getElementById('chatbox');
-  const messages = document.getElementById('messages');
-  const userInput = document.getElementById('user-input');
-  const sendBtn = document.getElementById('send-btn');
-  const typingIndicator = document.getElementById('typing-indicator');
+const chatButton = document.getElementById('chat-button');
+const closeChatButton = document.getElementById('closePOPUPCHATDIV');
+const closeChatActualButtonAndNotDiv = document.getElementById('close-chat-button');
+const chatBox = document.getElementById('chatbox');
+const messages = document.getElementById('messages');
+const userInput = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
+const typingIndicator = document.getElementById('typing-indicator');
 
-  const faqKeywords = {
-    "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place", 2],
-    "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative", "email", 4],
-    "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment", 1, "booking"],
-    "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services", 3]
-  };
+const faqKeywords = {
+  "location": ["location", "address", "locate", "located", "where", "directions", "find us", "where are you", "place", 2],
+  "contact": ["who", "contact", "phone", "reach us", "call", "how", "about", "team", "staff", "details", "information", "help", "person", "rep", "representative", "email", 4],
+  "hours": ["hours", "open", "you close", "business hours", "working hours", "open time", "close time", "schedule", "appointment", 1, "booking"],
+  "services": ["services", "offer", "you do", "what we offer", "what can you do", "service list", "types of services", 3]
+};
 
-  const faqs = {
-    "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
-    <a href="{% url "book_us" %}">Book a Service</a>`,
-    
-    "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient <a href="{% url 'contactUs' %}#check_zip_code">zip code checker tool</a>.`,
-    
-    "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="{% url 'services' %}">this link</a> for more details on the services we offer.`,
-    
-    "contact": `You can contact us at (662) 510-5715 for immediate assistance or <a href="{% url 'contactUs' %}#send_us_an_email_form">send us an email</a>. We will get back to you as soon as possible. We look forward to hearing from you and are here to help with any questions or concerns you may have!`
-  };
+const faqs = {
+  "hours": `Our hours of operation are Monday through Friday, from 8 AM to 5 PM. During these times, our team is dedicated to providing you with exceptional service. To schedule a service or consultation, please use the link below for our online booking system. We look forward to assisting you!<br><br>
+  <a href="{% url "book_us" %}">Book a Service</a>`,
+  
+  "location": `We are proudly headquartered in Southaven, MS, and offer comprehensive services to the Greater Memphis area, North Mississippi, and Southern Arkansas. To ensure that we serve your specific location, please use our convenient <a href="{% url 'contactUs' %}#check_zip_code">zip code checker tool</a>.`,
+  
+  "services": `At EcoClean, we provide comprehensive commercial cleaning services including Janitorial, Carpet & Floor Care, Healthcare, Education, and Specialty Cleaning. Our motto, "For offices big and small - we do it all," reflects our dedication to excellence. Check out <a href="{% url 'services' %}">this link</a> for more details on the services we offer.`,
+  
+  "contact": `You can contact us at (662) 510-5715 for immediate assistance or <a href="{% url 'contactUs' %}#send_us_an_email_form">send us an email</a>. We will get back to you as soon as possible. We look forward to hearing from you and are here to help with any questions or concerns you may have!`
+};
 
-  chatButton.addEventListener('click', function(event) {
-    if (event.target !== closeChatActualButtonAndNotDiv) {
-      toggleChat();
-    }
-  });
+chatButton.addEventListener('click', function(event) {
+  if (event.target !== closeChatActualButtonAndNotDiv) {
+    toggleChat();
+  }
+});
 
-  closeChatButton.addEventListener('click', function(event) {
-    event.stopPropagation();
-    if (chatBox.style.display === 'flex') {
-      chatBox.style.display = 'none';
-    }
-    {% comment %} chatButton.style.display = 'none'; {% endcomment %}
-  });
+closeChatButton.addEventListener('click', function(event) {
+  chatBox.style.display = 'none';
+});
 
-  closeChatActualButtonAndNotDiv.addEventListener('click', (e) => {
-    chatButton.style.display = 'none';
+closeChatActualButtonAndNotDiv.addEventListener('click', function(event) {
+  chatButton.style.display = 'none';
+  chatBox.style.display = 'none';
+});
+
+function toggleChat() {
+  if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+    chatBox.style.display = 'flex';
+    setTimeout(addQuickLinks, 500);
+  } else {
     chatBox.style.display = 'none';
-  })
-
-  function toggleChat() {
-    if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-      chatbox.style.display = 'flex';
-      setTimeout(addQuickLinks, 500);
-    } else {
-      chatBox.style.display = 'none';
-    }
   }
-
-  sendBtn.addEventListener('click', handleUserInput);
-  userInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      handleUserInput();
-    }
-  });
-
-  function handleUserInput() {
-    const inputText = userInput.value.trim();
-    if (inputText && /^[a-zA-Z0-9\s.,!?;:()'"-]*$/.test(inputText)) {
-      addMessage(inputText, true);
-      userInput.value = '';
-      typingIndicator.style.display = 'block';
-
-      setTimeout(() => {
-        typingIndicator.style.display = 'none';
-        const response = getResponse(inputText) || generateSuggestedUserInput();
-        addMessage(response);
-      }, 3000);
-    } else {
-      addMessage("Please enter a valid message.");
-    }
-  }
-
-  function addMessage(text, isUser = false) {
-    const messages = isUser ? [text] : text.split(/(?=<div)/).filter(Boolean);
-
-    messages.forEach(messageText => {
-        if (messageText.trim()) {
-            const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText.trim()}</div>`;
-            document.getElementById('messages').insertAdjacentHTML('beforeend', messageHTML);
-        }
-    });
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
 
+sendBtn.addEventListener('click', handleUserInput);
+userInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    handleUserInput();
+  }
+});
 
-    const messages = isUser ? [text] : text.split(/(?=<div)/).filter(Boolean);
-
-    messages.forEach(messageText => {
-        if (messageText.trim()) {
-            const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText.trim()}</div>`;
-            document.getElementById('messages').insertAdjacentHTML('beforeend', messageHTML);
-        }
-    });
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+function handleUserInput() {
+  const inputText = userInput.value.trim();
+  if (inputText && /^[a-zA-Z0-9\s.,!?;:()'"-]*$/.test(inputText)) {
+    addMessage(inputText, 'user-message');
+    userInput.value = '';
+    simulateBotResponse(inputText);
+  }
 }
 
+function addMessage(text, className) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = className;
+  messageDiv.innerHTML = text;
+  messages.appendChild(messageDiv);
+  messages.scrollTop = messages.scrollHeight;
+}
 
+function simulateBotResponse(userText) {
+  typingIndicator.style.display = 'flex';
+  setTimeout(() => {
+    typingIndicator.style.display = 'none';
+    const responseText = generateBotResponse(userText);
+    addMessage(responseText, 'bot-message');
+    setTimeout(addQuickLinks, 500);
+  }, 1000);
+}
 
-  function escapeHTML(str) {
-    return str.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
+function generateBotResponse(userText) {
+  const lowerText = userText.toLowerCase();
+  for (const [key, keywords] of Object.entries(faqKeywords)) {
+    if (keywords.some((kw) => lowerText.includes(kw))) {
+      return faqs[key];
+    }
   }
+  return "I'm sorry, I couldn't find an answer to your question. Could you please provide more details or check our FAQ page?";
+}
 
-  function getResponse(userInput) {
-    userInput = userInput.toLowerCase();
+function addQuickLinks() {
+  const lastMessage = document.querySelector('.bot-message:last-child');
+  if (lastMessage && !lastMessage.querySelector('.quick-link')) {
+    const linksContainer = document.createElement('div');
+    linksContainer.className = 'quick-links-container';
     for (const [key, keywords] of Object.entries(faqKeywords)) {
-      if (keywords.some(keyword => userInput.includes(keyword))) {
-        return faqs[key];
-      }
+      const link = document.createElement('div');
+      link.className = 'quick-link';
+      link.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+      link.addEventListener('click', () => {
+        simulateBotResponse(key);
+      });
+      linksContainer.appendChild(link);
     }
-    return null;
+    lastMessage.appendChild(linksContainer);
   }
-
-  function generateSuggestedUserInput() {
-    const suggestedInputHTMLDiv = `
-      <div class="suggestions-container">
-        <p>Sorry, I'm not sure what you're asking. Please choose from our following options:</p>
-        <ol class="suggestionsList">
-          ${Object.keys(faqs).map(triggerWord => `<li>${capitalizeFirstLetter(triggerWord)}</li>`).join('')}
-        </ol>
-      </div>
-    `;
-    return suggestedInputHTMLDiv;
-  }
-
-  function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  function addQuickLinks() {
-    const quickLinksHTML = `
-      <div class="bot-message">
-        <p>Here are some quick links you might find useful:</p>
-      </div>
-      <div class="quick-link"> <a href="{% url 'services' %}#services">Services</a></div>
-      <div class="quick-link"><a href="{% url 'contactUs' %}#send_us_an_email_form">Contact Us</a></div>
-    `;
-    addMessage(quickLinksHTML);
-  }
+}
 });
 </script>
