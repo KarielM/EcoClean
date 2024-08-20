@@ -1040,7 +1040,7 @@ textarea.form-control {
 #send_us_an_email_form {
   color: #1d1c2f;
   padding: 25px;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  background: #77b829;
   border-top: 2px solid #77b829;
   border-bottom: 2px solid #77b829;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
