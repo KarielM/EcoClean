@@ -24,7 +24,17 @@
         const zipCodeInt = parseInt(zipCode, 10);
     
         try {
-            const response = await fetch(`/check-zip-code/?code=${zipCodeInt}`);
+            const response = await fetch('/check-zip-code/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: new URLSearchParams({
+                    'code': zipCodeInt
+                })
+            });
+            console.log(response);
             const result = await response.json();
             if (response.ok) {
                 const message = result.exists ? 'We service this area!' : 'Sorry, we do not service this area.';
@@ -37,10 +47,12 @@
         }
     }
 
-    const submit_button = document.getElementById("form_submit_button");
-    submit_button.addEventListener("click", ()=> {
-        console.log("clicked");
-        validate_zipcode();
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+            validate_zipcode();
+        });
     });
     
 </script>
@@ -50,7 +62,7 @@
     {% csrf_token %}
     <label for="zipcode">ZIP Code:</label>
     <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
-    <button id = "form_submit_button" onclick = validate_zipcode() type="button">Check</button>
+    <button id = "form_submit_button" type="submit">Check</button>
 </form>
 <p id="check-result"></p>
 {%endblock content%}
