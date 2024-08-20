@@ -22,7 +22,7 @@
   <div id="chatbox">
     <div id="chatbox-header">
       Chat with us!
-      <span id="close-chat" onclick="toggleChat()">x</span>
+      <span id="closePOPUPCHATDIV">x</span>
     </div>
     <div id="chatbox-body">
       <div id="messages"></div>
@@ -197,7 +197,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const chatButton = document.getElementById('chat-button');
-  const closeChatButton = document.getElementById('close-chat-button');
+  const closeChatButton = document.getElementById('closePOPUPCHATDIV');
+  const closeChatActualButtonAndNotDiv = document.getElementById('close-chat-button');
   const chatBox = document.getElementById('chatbox');
   const messages = document.getElementById('messages');
   const userInput = document.getElementById('user-input');
@@ -223,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   chatButton.addEventListener('click', function(event) {
-    if (event.target !== closeChatButton) {
+    if (event.target !== closeChatActualButtonAndNotDiv) {
       toggleChat();
     }
   });
@@ -233,12 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (chatBox.style.display === 'flex') {
       chatBox.style.display = 'none';
     }
-    chatButton.style.display = 'none';
+    {% comment %} chatButton.style.display = 'none'; {% endcomment %}
   });
+
+  closeChatActualButtonAndNotDiv.addEventListener('click', (e) => {
+    chatButton.style.display = 'none';
+    chatBox.style.display = 'none';
+  })
 
   function toggleChat() {
     if (chatBox.style.display === 'none' || chatBox.style.display === '') {
-      chatBox.style.display = 'flex';
+      chatbox.style.display = 'flex';
       setTimeout(addQuickLinks, 500);
     } else {
       chatBox.style.display = 'none';

@@ -95,14 +95,21 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       const currentUrl = window.location.pathname;
+      const currentHash = window.location.hash;
       const menuItems = document.querySelectorAll('#listSec li a');
-
+    
       menuItems.forEach(item => {
-        if (item.getAttribute('href') === currentUrl) {
+        const linkHref = item.getAttribute('href');
+        const linkUrl = linkHref.split('#')[0];
+        const linkHash = linkHref.includes('#') ? linkHref.split('#')[1] : '';
+    
+        if (linkUrl === currentUrl && (linkHash === currentHash.substring(1) || !currentHash)) {
           item.classList.add('active');
+        } else {
+          item.classList.remove('active');
         }
       });
-    });
+    });    
   </script>
 
   {% include 'chatbot.html' %}
