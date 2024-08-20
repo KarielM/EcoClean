@@ -322,8 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="bot-message">
         <p>Here are some quick links you might find useful:</p>
       </div>
-      <div class="quick-link"> <a href="{% url 'services' %}">Services</a></div>
-      <div class="quick-link"><a href="{% url 'contactUs' %}">Contact Us</a></div>
+      <div class="quick-link"> <a href="{% url 'services' %}#serviceSection">Services</a></div>
+      <div class="quick-link"><a href="{% url 'contactUs' %}#send_us_an_email_form">Contact Us</a></div>
     `;
     addMessage(quickLinksHTML);
   }
