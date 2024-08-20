@@ -1,12 +1,12 @@
-
 {% load static %}
 
-{%block content%}
+{% block content %}
 <script>
     function isInteger(value) {
         const parsedValue = parseInt(value, 10); 
         return Number.isInteger(parsedValue);
     }
+
     async function validate_zipcode() {
         const zipCode = document.getElementById('id_codes').value.trim(); 
         const resultElement = document.getElementById('check-result');
@@ -57,12 +57,113 @@
     
 </script>
 
-<h1>SEE IF WE SERVICE YOUR AREA</h1>
-<form method="post" action="{% url 'check_zip_code' %}">
-    {% csrf_token %}
-    <label for="zipcode">ZIP Code:</label>
-    <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
-    <button id = "form_submit_button" type="submit">Check</button>
-</form>
-<p id="check-result"></p>
-{%endblock content%}
+<style>
+    .zipcode-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+        margin: 0;
+        padding: 0;
+
+        /* Box Style*/
+        
+        {% comment %} background: rgba(255, 255, 255, 0.288);
+        border-radius: 8px;
+        width: fit-content;
+        padding: 20px; {% endcomment %}
+    }
+
+    .zipcode-container h1 {
+        all: unset;
+        margin: 0;
+        padding 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #77b829;
+    }
+
+    .zipcode-container form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+    }
+
+    .zipcode-container label {
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .zipcode-container input {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        border: 1px solid transparent; 
+        border-radius: 20px; 
+        width: 100%;
+        max-width: 300px;
+        color: #000; 
+    }
+
+    .zipcode-container input:focus {
+        outline: none;
+        border-color: #77b829;
+    }
+
+    #check-result {
+        font-size: 1rem;
+        color: #77b829;
+        text-align: left; 
+    }
+
+    .zip-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .zip-content input,
+    .zip-content button {
+        height: 50px;
+        border-radius: 20px;
+        font-size: 1rem;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        line-height: 50px;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+    }
+
+    .zip-content input {
+        margin-right: 10px;
+        width: 100%;
+        max-width: 300px;
+        color: #000;
+    }
+
+    .zip-content button {
+        background-color: #77b829;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    .zip-content button:focus {
+        outline: none;
+        background-color: #5fa921;
+    }
+</style>
+
+<div class="zipcode-container">
+    <h1>SEE IF WE SERVICE YOUR AREA:</h1>
+    <form method="post" action="{% url 'check_zip_code' %}">
+        {% csrf_token %}
+        {% comment %} <label for="zipcode">ZIP Code:</label> {% endcomment %}
+        <div class="zip-content">
+            <input type="text" id="id_codes" name="code" placeholder="Enter zip code" required>
+            <button id="form_submit_button" type="submit">Check</button>
+        </div>
+    </form>
+    <p id="check-result"></p>
+</div>
+{% endblock content %}
