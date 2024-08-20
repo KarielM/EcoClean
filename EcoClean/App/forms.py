@@ -63,16 +63,25 @@ class BookUsForm(forms.Form):
     business_name = forms.CharField(
         label="Business Name",
         max_length=250,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Business Name"}
+        ),
     )
     name = forms.CharField(
         label="Name",
         max_length=100,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Name"}
+        ),
     )
     email = forms.EmailField(
         label="Email",
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Your Email (EXAMPLE@EXAMPLE.COM)",
+            }
+        ),
     )
     phone_number = forms.CharField(
         label="Phone Number",
@@ -84,23 +93,34 @@ class BookUsForm(forms.Form):
             )
         ],
         required=False,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Your Phone Number (1234567890)",
+            }
+        ),
     )
     street_address_1 = forms.CharField(
         label="Street Address",
         max_length=250,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Street Address"}
+        ),
     )
     street_address_2 = forms.CharField(
         label="Apt./Suite",
         max_length=250,
         required=False,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Apt./Suite"}
+        ),
     )
     city = forms.CharField(
         label="City",
         max_length=50,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your City"}
+        ),
     )
     state = forms.ChoiceField(
         label="State",
@@ -108,7 +128,6 @@ class BookUsForm(forms.Form):
         widget=forms.RadioSelect,
         required=True,
         initial=None,
-        # widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
     )
     zip_code = forms.CharField(
         label="ZIP",
@@ -117,12 +136,19 @@ class BookUsForm(forms.Form):
             RegexValidator(regex=r"^\d+$", message="ZIP code must contain only digits.")
         ],
         required=True,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your ZIP (12345)"}
+        ),
     )
     date_requested = forms.DateField(
         input_formats=["%m/%d/%Y"],
         required=True,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Date Requested (MM/DD/YYYY)",
+            }
+        ),
     )
     time = forms.ChoiceField(
         label="Time Slot Requested:",
