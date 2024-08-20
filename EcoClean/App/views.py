@@ -46,18 +46,23 @@ def load_zip_codes():
 
 def validate_zipcode(request):
     print(request.POST.get("code"))
-    zip_code = request.GET.get("code")
-    print(zip_code)
-    try:
-        zip_code = int(zip_code)
-    except (TypeError, ValueError):
-        return JsonResponse(
-            {"error": "Valid ZIP code is required and must be an integer."}, status=400
-        )
+    if request.method == "POST":
+        zip_code = request.POST.get("code")
+        if zip_code is None:
+            return JsonResponse({"error": "ZIP code is required."}, status=400)
+        try:
+            zip_code = int(zip_code)
+        except ValueError:
+            return JsonResponse(
+                {"error": "Valid ZIP code is required and must be an integer."},
+                status=400,
+            )
 
-    zip_codes = load_zip_codes()
-    exists = zip_code in zip_codes
-    return JsonResponse({"exists": exists})
+        zip_codes = load_zip_codes()
+        exists = zip_code in zip_codes
+        return JsonResponse({"exists": exists})
+
+    return JsonResponse({"error": "Invalid request method."}, status=405)
 
 
 def contactFormView(request):

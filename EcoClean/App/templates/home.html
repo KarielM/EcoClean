@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {%block content%}
-<div class="top-sec">
+<div class="top-sec" id="homeSection">
   <strong>
     Eco Clean is dedicated to delivering exceptional cleaning services for over 14 years. Our commitment to quality has resulted in 2000+ satisfied customers and a team with over 100 experienced staff members.</strong>
     
@@ -27,43 +27,49 @@
 
 
   <div class="service-container">
-    <strong>COMPREHENSIVE CLEANING SERVICES FOR ALL SPACES</strong>
+  <strong>COMPREHENSIVE CLEANING SERVICES FOR ALL SPACES</strong>
     <div class="service-sec">
       <div class="service">
-        <img src="{% static "images/classroom.jpg" %}" alt="" />
-        <h2>Education</h2>
-      </div>
+      <img src="{% static "images/classroom.jpg" %}" alt="" />
+      <h2>Education</h2>
+      <hr>
+    </div>
 
       <div class="service">
-        <img src="{% static "images/hospital.jpg" %}" alt="" />
-        <h2>Medical</h2>
-      </div>
+      <img src="{% static "images/hospital.jpg" %}" alt="" />
+      <h2>Medical</h2>
+      <hr>
+    </div>
  
   
       <div class="service">
-        <img src="{% static "images/hospitality.jpeg" %}" alt="" />
-        <h2>Hospitality</h2>
-      </div>
+      <img src="{% static "images/hospitality.jpeg" %}" alt="" />
+      <h2>Hospitality</h2>
+      <hr>
+    </div>
 
    
       <div class="service">
-        <img src="{% static "images/corporte.jpg" %}" alt="" />
-        <h2>Corporate</h2>
-      </div>
+      <img src="{% static "images/corporte.jpg" %}" alt="" />
+      <h2>Corporate</h2>
+      <hr>
+    </div>
    
    
       <div class="service">
-        <img src="{% static "images/restaurant.jpg" %}" alt="" />
-        <h2>Service Industries</h2>
-      </div>
+      <img src="{% static "images/restaurant.jpg" %}" alt="" />
+      <h2>Service Industries</h2>
+      <hr>
+    </div>
    
     
       <div class="service">
-        <img src="{% static "images/theatre.jpg" %}" alt="" />
-        <h2>Entertainment Venues</h2>
-      </div>
+      <img src="{% static "images/theatre.jpg" %}" alt="" />
+      <h2>Entertainment Venues</h2>
+      <hr>
     </div>
   </div>
+</div>
 
 <div class="content-sec-variant">
 
@@ -145,6 +151,9 @@
     </div>
     </div>
       </div>
+    {% comment %} <div class="contact-us-content">
+        {% include "contact.html"%}
+    </div> {% endcomment %}
 
 
   

@@ -288,6 +288,18 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 
+    const messages = isUser ? [text] : text.split(/(?=<div)/).filter(Boolean);
+
+    messages.forEach(messageText => {
+        if (messageText.trim()) {
+            const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText.trim()}</div>`;
+            document.getElementById('messages').insertAdjacentHTML('beforeend', messageHTML);
+        }
+    });
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+}
+
+
 
   function escapeHTML(str) {
     return str.replace(/&/g, '&amp;')
