@@ -42,6 +42,10 @@
     align-items: center;
   }
 
+  #close-chat {
+    cursor: pointer;
+  }
+
   #chatbox-body {
     flex: 1;
     display: flex;
@@ -113,7 +117,7 @@
     max-width: 80%;
     word-wrap:break-word;
   }
-
+  
   .bot-message {
     background-color: #f1f1f1;
     color: #333;
@@ -131,22 +135,24 @@
 
   .bot-message .quick-link {
     color: #1d1c2f;
+    {% comment %} background-color: #d6d6f2; {% endcomment %}
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     display: inline-block;
     max-width: 100%;
-  }
+}
 
-  .bot-message .quick-link:hover {
+.bot-message .quick-link:hover {
     background-color: #c2c2e6;
     width: 100%;
-  }
+}
 
-  .quick-link a {
-    text-decoration: none;
-  }
+.quick-link a {
+  text-decoration: none;
+}
+
 </style>
 </head>
 <body>
@@ -272,21 +278,14 @@ function generateBotResponse(userText) {
 }
 
 function addQuickLinks() {
-  const lastMessage = document.querySelector('.bot-message:last-child');
-  if (lastMessage && !lastMessage.querySelector('.quick-link')) {
-    const linksContainer = document.createElement('div');
-    linksContainer.className = 'quick-links-container';
-    for (const [key, keywords] of Object.entries(faqKeywords)) {
-      const link = document.createElement('div');
-      link.className = 'quick-link';
-      link.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-      link.addEventListener('click', () => {
-        simulateBotResponse(key);
-      });
-      linksContainer.appendChild(link);
-    }
-    lastMessage.appendChild(linksContainer);
-  }
+  const quickLinksHTML = `
+    <div class="bot-message">
+      <p>Here are some quick links you might find useful:</p>
+    </div>
+    <div class="quick-link"> <a href="{% url 'services' %}#services">Services</a></div>
+    <div class="quick-link"><a href="{% url 'contactUs' %}#send_us_an_email_form">Contact Us</a></div>
+  `;
+  addMessage(quickLinksHTML);
 }
 });
 </script>
