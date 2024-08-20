@@ -448,17 +448,19 @@ strong {
 .footer-card-left {
   width: 100%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 
 }
 
-#footer-logo{
+#footer-logo {
   margin-left: 30px;
 }
-#wrap img{
-   float: left;
+
+#wrap img {
+  float: left;
 }
-#wrap p{
+
+#wrap p {
   margin-top: 30px;
 }
 
@@ -469,14 +471,15 @@ strong {
   margin-top: 30px;
 }
 
-#footer-column1 ul li{
+#footer-column1 ul li {
   margin-bottom: 10px;
 }
 
-#footer-column2 p{
+#footer-column2 p {
   margin-bottom: 20px;
 }
-#footer-column2 div{
+
+#footer-column2 div {
   margin-top: 40px;
 }
 
@@ -630,7 +633,7 @@ textarea.form-control {
   width: 100%;
   height: fit-content;
   text-align: left;
-  color: #555;
+  color: #1d1c2f;
   font-weight: 600;
   background: #77b829;
   padding: 40px 25px;
@@ -745,7 +748,7 @@ textarea.form-control {
     grid-template-rows: 1;
   }
 
- 
+
 
   .customers-sec {
     flex-direction: column;
@@ -782,6 +785,7 @@ textarea.form-control {
 
   #listSec {
     top: 150px;
+    margin-top: 1em;
   }
 
   #listSec li a.active {
@@ -862,6 +866,10 @@ textarea.form-control {
 }
 
 @media (max-width: 750px) {
+  #listSec {
+    margin-top: 1em;
+  }
+
   .card-sec {
     grid-template-columns: repeat(1, 1fr);
     place-items: center;
@@ -878,6 +886,10 @@ textarea.form-control {
 }
 
 @media (max-width: 600px) {
+  #listSec {
+    margin-top: 1em;
+  }
+
   button {
     width: 120px;
     height: 43px;
@@ -910,7 +922,7 @@ textarea.form-control {
 }
 
 /*-------------------------------- Styling the send us an email form -------------------------------*/
-#send_us_an_email_form {
+/* #send_us_an_email_form {
   color: #1d1c2f;
   padding: 25px;
   background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
@@ -1023,4 +1035,123 @@ textarea.form-control {
 #id_time option {
   background-color: #f4f4f4;
   color: #333;
+} */
+
+#send_us_an_email_form {
+  color: #1d1c2f;
+  padding: 25px;
+  background: #77b829;
+  border-top: 2px solid #77b829;
+  border-bottom: 2px solid #77b829;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#send_us_an_email_form h1 {
+  font-size: 40px;
+  margin-bottom: 25px;
+  text-align: center;
+  text-shadow: 1px 1px 2px #333;
+}
+
+#send_us_an_email_form .form-control {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 2px solid #77b829;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #fff;
+  color: #1d1c2f;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#send_us_an_email_form .form-control:focus {
+  border-color: #1d1c2f;
+  /* Blue for focus border */
+  box-shadow: 0 0 8px rgba(29, 28, 47, 0.5);
+  /* Blue shadow for focus */
+  background-color: #f9f9f9;
+}
+
+#send_us_an_email_form label {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+#send_us_an_email_form button[type="submit"] {
+  background: #1d1c2f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  margin: auto;
+}
+
+#send_us_an_email_form button[type="submit"]:hover {
+  background: linear-gradient(#292847);
+  transform: translateY(-3px);
+}
+
+#send_us_an_email_form button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+#send_us_an_email_form .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#send_us_an_email_form .form-control[type="radio"]+label {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+#send_us_an_email_form .form-control[type="radio"]+label::before {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+#id_state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 1em;
+  margin-top: .5em;
+}
+
+#id_state label {
+  flex: none;
+  padding-right: 20px;
+}
+
+#id_time {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border: 2px solid #77b829;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #1d1c2f;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#id_time:focus {
+  border-color: #1d1c2f;
+  /* Blue for focus border */
+  box-shadow: 0 0 8px rgba(29, 28, 47, 0.5);
+  /* Blue shadow for focus */
+  background-color: #f9f9f9;
+}
+
+#id_time option {
+  background-color: #fff;
+  color: #1d1c2f;
 }

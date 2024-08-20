@@ -282,6 +282,18 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 
+    const messages = isUser ? [text] : text.split(/(?=<div)/).filter(Boolean);
+
+    messages.forEach(messageText => {
+        if (messageText.trim()) {
+            const messageHTML = `<div class="${isUser ? 'user-message' : 'bot-message'}">${messageText.trim()}</div>`;
+            document.getElementById('messages').insertAdjacentHTML('beforeend', messageHTML);
+        }
+    });
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+}
+
+
 
   function escapeHTML(str) {
     return str.replace(/&/g, '&amp;')
@@ -322,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="bot-message">
         <p>Here are some quick links you might find useful:</p>
       </div>
-      <div class="quick-link"> <a href="{% url 'services' %}#services">Services</a></div>
+      <div class="quick-link"> <a href="{% url 'services' %}#serviceSection">Services</a></div>
       <div class="quick-link"><a href="{% url 'contactUs' %}#send_us_an_email_form">Contact Us</a></div>
     `;
     addMessage(quickLinksHTML);
