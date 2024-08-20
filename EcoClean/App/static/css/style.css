@@ -146,7 +146,7 @@ strong {
 }
 
 .left-sec {
-  width: 52%;
+  width: 70%;
 }
 
 .right-sec {
@@ -522,7 +522,7 @@ strong {
 hr {
   max-width: 100%;
   margin-bottom: 40px;
-  border-top: 6px solid black;
+  border-top: 6px solid #77b829;
 }
 
 .form-control {
