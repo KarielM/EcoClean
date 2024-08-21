@@ -263,9 +263,18 @@ function simulateBotResponse(userText) {
     typingIndicator.style.display = 'none';
     const responseText = generateBotResponse(userText);
     addMessage(responseText, 'bot-message');
-    setTimeout(addQuickLinks, 500);
+    
+    const messagesContent = document.getElementById('messages').innerHTML.trim();
+    if (messagesContent !== "") {
+      setTimeout(() => {
+        if (messagesContent !== document.getElementById('messages').innerHTML.trim()) {
+          addQuickLinks();
+        }
+      }, 500);
+    }
   }, 1000);
 }
+
 
 function generateBotResponse(userText) {
   const lowerText = userText.toLowerCase();
