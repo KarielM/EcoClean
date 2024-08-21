@@ -286,8 +286,9 @@ strong {
 /*  */
 .card {
   width: 100%;
-  height: 500px;
+  height: 350px;
   display: flex;
+  font-size: 16px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -469,7 +470,6 @@ strong {
   align-items: center;
   background: rgba(255, 255, 255, 0.288);
   padding: 40px 25px;
-  border-radius: 15px;
   transition: 0.3s;
   text-align: center;
   line-height: 1.5;
@@ -484,6 +484,7 @@ strong {
   height: 250px;
   object-fit: cover;
   filter: none;
+  border-radius: 15px;
 }
 
 .service-sec hr{
@@ -511,7 +512,6 @@ strong {
   width: 100%;
   display: flex;
   flex-direction: column;
-  <<<<<<< HEAD=======>>>>>>>b315526f8f5641b37fe0fb1993f458957c898bec
 }
 
 #footer-logo {
@@ -586,9 +586,8 @@ strong {
 hr {
   max-width: 100%;
   margin-bottom: 40px;
-  <<<<<<< HEAD border-top: 6px solid #66bb6a;
-  =======border-top: 6px solid #77b829;
-  >>>>>>>b315526f8f5641b37fe0fb1993f458957c898bec
+  border-top: 6px solid #66bb6a;
+  border-top: 6px solid #77b829;
 }
 
 .form-control {
@@ -628,8 +627,9 @@ textarea.form-control {
 .contact-us-content {
   /* width: 100%; */
   text-align: center;
-  background-color: #a9a9a9;
+  background-color: #100f2c;
   padding: 40px;
+  color: white;
   /* margin-top: 100px; */
   /* border-radius: 10px; */
 }
@@ -689,7 +689,8 @@ textarea.form-control {
 
 .services-card {
   width: 100%;
-  height: 550px;
+  height: 350px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -706,6 +707,7 @@ textarea.form-control {
 .services-card2 {
   width: 100%;
   height: fit-content;
+  font-size: 16px;
   text-align: left;
   color: black;
   background: rgba(255, 255, 255, 0.288);
@@ -1088,7 +1090,7 @@ textarea.form-control {
     grid-template-rows: 1;
   }
 
-  <<<<<<< HEAD=======>>>>>>>b315526f8f5641b37fe0fb1993f458957c898bec .customers-sec {
+  .customers-sec {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1209,85 +1211,73 @@ textarea.form-control {
     place-items: center;
   }
 
-  @media (max-width: 750px) {
-    #listSec {
-      margin-top: 1em;
-    }
-
-    .card-sec {
-      grid-template-columns: repeat(1, 1fr);
-      place-items: center;
-    }
-
-    .services-card-sec {
-      grid-template-columns: repeat(1, 1fr);
-      place-items: center;
-    }
-
-    #serviceCardSec {
-      grid-template-columns: repeat(1, 1fr);
-      place-content: center;
-      padding: 0;
-      margin: 0;
-    }
-    .service-sec{
-      grid-template-columns: repeat(1, 1fr);
-      place-content: center;
-      padding: 0;
-      margin: 0;
-    }
-
-    #serviceCard img {
-      width: 100%;
-    }
-
-    .service img{
-      width: 100%;
-    }
-
-    .gallery .modal img {
-      width: 95%;
-    }
-
-    .gallery img {
-      justify-content: center;
-      align-items: center;
-      width: 50%;
-    }
+@media (max-width: 750px) {
+  #listSec {
+    margin-top: 1em;
   }
-
-  @media (max-width: 600px) {
-    #listSec {
-      margin-top: 1em;
-    }
-
-    button {
-      width: 120px;
-      height: 43px;
-      font-size: 15px;
-    }
-
-    .left-sec button {
-      margin-bottom: 1.5rem;
-    }
-
-    .left-sec p {
-      width: 100%;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-
-    .toggle-btn .bar {
-      width: 32px;
-    }
-
-    .down-btn {
-      width: 23px;
-      height: 48px;
-    }
-
-    .left-sec h1 {
-      font-size: 38px;
-      line-height: 45px;
-    }
+  .card-sec {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
   }
+  .services-card-sec {
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+  }
+  #serviceCardSec {
+    grid-template-columns: repeat(1, 1fr);
+    place-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  .service-sec{
+    grid-template-columns: repeat(1, 1fr);
+    place-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  #serviceCard img {
+    width: 100%;
+  }
+  .service img{
+    width: 100%;
+  }
+  .gallery .modal img {
+    width: 95%;
+  }
+  .gallery img {
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+}
+}
+
+@media (max-width: 600px) {
+  #listSec {
+    margin-top: 1em;
+  }
+  button {
+    width: 120px;
+    height: 43px;
+    font-size: 15px;
+  }
+  .left-sec button {
+    margin-bottom: 1.5rem;
+  }
+  .left-sec p {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  .toggle-btn .bar {
+    width: 32px;
+  }
+  .down-btn {
+    width: 23px;
+    height: 48px;
+  }
+  .left-sec h1 {
+    font-size: 38px;
+    line-height: 45px;
+  }
+}
